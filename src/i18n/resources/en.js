@@ -181,6 +181,17 @@ const en = {
       }
     }
   },
+  pwa: {
+    installTitle: "Install App",
+    installDescription: "Add this app to your home screen so it works like a full-screen app and keeps key pages available offline.",
+    installNow: "Install now",
+    dismiss: "Not now",
+    iosSteps: {
+      share: "Tap the Share button in Safari.",
+      addToHome: "Select Add to Home Screen.",
+      openAsWebApp: "Confirm and open it as a web app from your home screen."
+    }
+  },
   curriculum: {
     title: "Abacus Curriculum",
     description: "Study from beginner to expert through Junior, Foundation, Advanced, and Grand Master stages.",

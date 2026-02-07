@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Abacus Joy App Icon</title>
+  <desc id="desc">Rounded square icon with colorful abacus beads.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#2d7ef8" />
+      <stop offset="100%" stop-color="#11a873" />
+    </linearGradient>
+  </defs>
+  <rect x="32" y="32" width="448" height="448" rx="108" fill="url(#bg)" />
+  <rect x="112" y="164" width="288" height="26" rx="13" fill="#ffffff" opacity="0.95" />
+  <rect x="112" y="242" width="288" height="26" rx="13" fill="#ffffff" opacity="0.95" />
+  <rect x="112" y="320" width="288" height="26" rx="13" fill="#ffffff" opacity="0.95" />
+  <circle cx="172" cy="177" r="24" fill="#ffd166" />
+  <circle cx="226" cy="177" r="24" fill="#ef476f" />
+  <circle cx="298" cy="177" r="24" fill="#f78c6b" />
+  <circle cx="352" cy="177" r="24" fill="#ffd166" />
+  <circle cx="154" cy="255" r="24" fill="#ef476f" />
+  <circle cx="208" cy="255" r="24" fill="#06d6a0" />
+  <circle cx="280" cy="255" r="24" fill="#ffd166" />
+  <circle cx="334" cy="255" r="24" fill="#ef476f" />
+  <circle cx="190" cy="333" r="24" fill="#ffd166" />
+  <circle cx="244" cy="333" r="24" fill="#f78c6b" />
+  <circle cx="316" cy="333" r="24" fill="#06d6a0" />
+  <circle cx="370" cy="333" r="24" fill="#ffd166" />
+</svg>

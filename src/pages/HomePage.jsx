@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import InstallPromptCard from "../features/pwa/components/InstallPromptCard.jsx";
 
 const HomePage = () => {
   const { t } = useTranslation();
@@ -42,6 +43,8 @@ const HomePage = () => {
           <Link to="/generator" className="btn btn-secondary">{t("home.goGenerator")}</Link>
         </div>
       </header>
+
+      <InstallPromptCard />
 
       <section className="feature-grid feature-grid-four" aria-label={t("home.capabilitiesLabel")}>
         {featureCards.map((card) => (

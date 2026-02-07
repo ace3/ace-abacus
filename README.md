@@ -16,6 +16,7 @@ Multi-page abacus learning site built with React + Vite. No login, no backend.
 - Time Attack mode with configurable countdown durations
 - Optional practice BGM with default-off toggle and hurry-up countdown cue
 - Local progress motivation card: streaks, badges, and session save tracking
+- PWA install support for Android/iOS home screen with offline-ready app shell
 - Bilingual UI: Bahasa Indonesia (default) + English alternative
 - Kids-friendly theme selector (`Neutral`, `Bright A`, `Bright B`)
 - Curriculum lesson links can prefill Generator/Anki/Time Attack via URL query

@@ -181,6 +181,17 @@ const id = {
       }
     }
   },
+  pwa: {
+    installTitle: "Pasang Aplikasi",
+    installDescription: "Tambahkan aplikasi ini ke layar utama agar terasa seperti aplikasi penuh dan halaman penting tetap tersedia saat offline.",
+    installNow: "Pasang sekarang",
+    dismiss: "Nanti saja",
+    iosSteps: {
+      share: "Ketuk tombol Bagikan di Safari.",
+      addToHome: "Pilih Tambah ke Layar Utama.",
+      openAsWebApp: "Konfirmasi lalu buka sebagai web app dari layar utama."
+    }
+  },
   curriculum: {
     title: "Kurikulum Abakus",
     description: "Belajar dari dasar hingga mahir lewat tahap Junior, Foundation, Advanced, dan Grand Master.",

@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { act } from "react";
 import { MemoryRouter } from "react-router-dom";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -99,6 +99,28 @@ describe("Practice pages", () => {
 
     const toggle = screen.getByRole("checkbox", { name: "Aktifkan BGM" });
     expect(toggle).not.toBeChecked();
+  });
+
+  it("shows install card when browser supports install prompt", async () => {
+    renderAtRoute("/");
+
+    const promptSpy = vi.fn().mockResolvedValue(undefined);
+    const installEvent = new Event("beforeinstallprompt");
+    installEvent.preventDefault = vi.fn();
+    installEvent.prompt = promptSpy;
+    installEvent.userChoice = Promise.resolve({ outcome: "accepted" });
+
+    act(() => {
+      window.dispatchEvent(installEvent);
+    });
+
+    expect(await screen.findByText("Pasang Aplikasi")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "Pasang sekarang" }));
+
+    await waitFor(() => {
+      expect(promptSpy).toHaveBeenCalledTimes(1);
+    });
   });
 
   it("supports Anki check then next flow", () => {
