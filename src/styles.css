@@ -1,0 +1,281 @@
+:root {
+  --bg: #f2f5f7;
+  --panel: #ffffff;
+  --ink: #1c2430;
+  --muted: #596273;
+  --line: #ccd5df;
+  --accent: #1f6f8b;
+  --error: #b3261e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: linear-gradient(160deg, #f7fafb 0%, #ebf1f5 100%);
+}
+
+.app-shell {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.25rem;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.app-header p {
+  margin-top: 0.4rem;
+  color: var(--muted);
+}
+
+.control-panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+}
+
+label {
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.95rem;
+}
+
+input,
+select,
+button {
+  font: inherit;
+}
+
+input,
+select {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.55rem 0.7rem;
+}
+
+.toggle-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.85rem;
+}
+
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checkbox-field input {
+  width: auto;
+}
+
+.action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+button {
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 0.55rem 0.9rem;
+  cursor: pointer;
+}
+
+#generateBtn {
+  background: var(--accent);
+  color: #fff;
+}
+
+.action-row button:not(#generateBtn) {
+  background: #fff;
+  border-color: var(--line);
+}
+
+.form-errors {
+  color: var(--error);
+  margin-top: 0.75rem;
+  min-height: 1.2rem;
+}
+
+.form-errors ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.warnings {
+  margin-top: 0.8rem;
+}
+
+.warning-card {
+  background: #fff7e8;
+  border: 1px solid #e4cc95;
+  border-radius: 10px;
+  padding: 0.7rem 0.9rem;
+}
+
+.warning-card ul {
+  margin: 0.4rem 0 0;
+  padding-left: 1.2rem;
+}
+
+.print-area {
+  margin-top: 1rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.sheet-header h2 {
+  margin: 0;
+}
+
+.sheet-meta,
+.config-note {
+  margin-top: 0.35rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.student-lines {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.6rem;
+  font-size: 0.95rem;
+}
+
+.problem-grid {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.problem-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.6rem;
+  break-inside: avoid;
+}
+
+.problem-title {
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.row-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: "Courier New", monospace;
+  text-align: right;
+  line-height: 1.4;
+}
+
+.answer-line {
+  border-bottom: 2px solid #202020;
+  margin-top: 0.5rem;
+  min-height: 1rem;
+}
+
+.answer-key-list {
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.45rem;
+  font-family: "Courier New", monospace;
+}
+
+.answer-key-list li {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.4rem 0.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 900px) {
+  .problem-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .answer-key-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .problem-grid,
+  .answer-key-list {
+    grid-template-columns: 1fr;
+  }
+
+  .print-area {
+    padding: 0.75rem;
+  }
+}
+
+@media print {
+  body {
+    margin: 0;
+    background: #fff;
+    color: #000;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .app-shell {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .print-area {
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  body[data-print-target="worksheet"] .answer-key-area {
+    display: none;
+  }
+
+  body[data-print-target="answer-key"] .worksheet-area {
+    display: none;
+  }
+
+  .problem-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .answer-key-sheet {
+    break-before: page;
+    page-break-before: always;
+  }
+}
