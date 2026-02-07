@@ -94,6 +94,13 @@ describe("Generator page", () => {
 });
 
 describe("Practice pages", () => {
+  it("keeps bgm disabled by default in practice pages", () => {
+    renderAtRoute("/anki");
+
+    const toggle = screen.getByRole("checkbox", { name: "Aktifkan BGM" });
+    expect(toggle).not.toBeChecked();
+  });
+
   it("supports Anki check then next flow", () => {
     renderAtRoute("/anki");
 
@@ -141,5 +148,16 @@ describe("Practice pages", () => {
 
     expect(screen.getByText(/Sesi selesai\./)).toBeInTheDocument();
     vi.useRealTimers();
+  });
+
+  it("saves anki session progress", () => {
+    renderAtRoute("/anki");
+
+    const answer = computeDisplayedAnswer();
+    enterAnswerWithNumpad(answer);
+    fireEvent.click(screen.getByRole("button", { name: "Periksa" }));
+    fireEvent.click(screen.getByRole("button", { name: "Simpan Sesi" }));
+
+    expect(screen.getByText("Sesi tersimpan. Progress diperbarui.")).toBeInTheDocument();
   });
 });

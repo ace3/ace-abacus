@@ -3,8 +3,13 @@ import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import AnswerInputDisplay from "../features/practice/components/AnswerInputDisplay.jsx";
 import Numpad from "../features/practice/components/Numpad.jsx";
+import PracticeAudioControls from "../features/practice/components/PracticeAudioControls.jsx";
+import PracticeMotivationCard from "../features/practice/components/PracticeMotivationCard.jsx";
 import PracticeSettingsForm from "../features/practice/components/PracticeSettingsForm.jsx";
 import { formatSignedRow } from "../features/practice/domain/practiceSession.js";
+import { usePracticeAudio } from "../features/practice/hooks/usePracticeAudio.js";
+import { usePracticeAudioSettings } from "../features/practice/hooks/usePracticeAudioSettings.js";
+import { usePracticeProgress } from "../features/practice/hooks/usePracticeProgress.js";
 import { usePracticeQuestion } from "../features/practice/hooks/usePracticeQuestion.js";
 import { usePracticeSettings } from "../features/practice/hooks/usePracticeSettings.js";
 import { parseCurriculumPresetSearch } from "../shared/presets/curriculumPresetQuery.js";
@@ -25,7 +30,10 @@ const TimeAttackPage = () => {
   const [searchParams] = useSearchParams();
   const prefillSignature = searchParams.toString();
   const appliedPrefillSignatureRef = useRef("");
+  const recordedSessionRef = useRef(false);
   const { settings, updateSetting, resetSettings, applyPreset } = usePracticeSettings();
+  const { audioSettings, updateAudioSetting, resetAudioSettings } = usePracticeAudioSettings();
+  const { snapshot, recordSession } = usePracticeProgress();
   const { question, error, nextQuestion } = usePracticeQuestion(settings);
   const [duration, setDuration] = useState(60);
   const [timeLeft, setTimeLeft] = useState(duration);
@@ -33,6 +41,13 @@ const TimeAttackPage = () => {
   const [answerInput, setAnswerInput] = useState("");
   const [stats, setStats] = useState({ correct: 0, attempted: 0 });
   const [prefillMeta, setPrefillMeta] = useState(null);
+  const [audioError, setAudioError] = useState("");
+  const { startAmbient, startCountdown, stopAll } = usePracticeAudio({
+    enabled: audioSettings.bgmEnabled,
+    ambientVolume: audioSettings.masterVolume,
+    countdownVolume: audioSettings.countdownVolume,
+    onError: () => setAudioError(t("audio.playbackError"))
+  });
 
   useEffect(() => {
     if (!prefillSignature || appliedPrefillSignatureRef.current === prefillSignature) {
@@ -77,6 +92,38 @@ const TimeAttackPage = () => {
     };
   }, [status]);
 
+  useEffect(() => {
+    if (status !== "running") {
+      stopAll();
+      return;
+    }
+
+    if (timeLeft <= audioSettings.countdownThresholdSec) {
+      startCountdown();
+      return;
+    }
+
+    startAmbient();
+  }, [audioSettings.countdownThresholdSec, startAmbient, startCountdown, status, stopAll, timeLeft]);
+
+  useEffect(() => {
+    if (status !== "finished" || recordedSessionRef.current || stats.attempted <= 0) {
+      return;
+    }
+
+    recordSession({
+      mode: "timeAttack",
+      correct: stats.correct,
+      attempted: stats.attempted,
+      durationSec: duration
+    });
+    recordedSessionRef.current = true;
+  }, [duration, recordSession, stats.attempted, stats.correct, status]);
+
+  useEffect(() => () => {
+    stopAll();
+  }, [stopAll]);
+
   const accuracy = useMemo(() => {
     if (stats.attempted === 0) {
       return 0;
@@ -98,11 +145,20 @@ const TimeAttackPage = () => {
     return messages;
   }, [prefillMeta, t]);
 
+  const handleResetAllSettings = () => {
+    resetSettings();
+    resetAudioSettings();
+    stopAll();
+    setAudioError("");
+  };
+
   const startSession = () => {
+    recordedSessionRef.current = false;
     setStats({ correct: 0, attempted: 0 });
     setAnswerInput("");
     setTimeLeft(duration);
     setStatus("running");
+    setAudioError("");
     nextQuestion();
   };
 
@@ -111,6 +167,7 @@ const TimeAttackPage = () => {
       return;
     }
 
+    setAudioError("");
     setAnswerInput((prev) => (prev === "0" ? digit : `${prev}${digit}`));
   };
 
@@ -119,6 +176,7 @@ const TimeAttackPage = () => {
       return;
     }
 
+    setAudioError("");
     setAnswerInput((prev) => {
       if (!prev) {
         return "-";
@@ -133,10 +191,12 @@ const TimeAttackPage = () => {
       return;
     }
 
+    setAudioError("");
     setAnswerInput((prev) => prev.slice(0, -1));
   };
 
   const handleClear = () => {
+    setAudioError("");
     setAnswerInput("");
   };
 
@@ -145,6 +205,7 @@ const TimeAttackPage = () => {
       return;
     }
 
+    setAudioError("");
     const parsed = normalizeInput(answerInput);
     if (parsed === null) {
       return;
@@ -177,7 +238,7 @@ const TimeAttackPage = () => {
       <PracticeSettingsForm
         settings={settings}
         onChange={updateSetting}
-        onReset={resetSettings}
+        onReset={handleResetAllSettings}
         extraControls={(
           <label>
             {t("timeAttack.duration")}
@@ -189,6 +250,8 @@ const TimeAttackPage = () => {
           </label>
         )}
       />
+      <PracticeAudioControls settings={audioSettings} onChange={updateAudioSetting} />
+      <PracticeMotivationCard snapshot={snapshot} />
 
       <section className="practice-card" aria-live="polite">
         <div className="practice-stats">
@@ -199,6 +262,7 @@ const TimeAttackPage = () => {
         </div>
 
         {error ? <p className="error-text">{error}</p> : null}
+        {audioError ? <p className="error-text">{audioError}</p> : null}
 
         {status !== "running" ? (
           <div className="session-panel">

@@ -144,6 +144,43 @@ const id = {
     ready: "Siap memulai sesi latihan bertimer.",
     sessionComplete: "Sesi selesai. Skor: {{correct}} benar, akurasi {{accuracy}}%."
   },
+  audio: {
+    title: "Audio Latihan",
+    enableBgm: "Aktifkan BGM",
+    masterVolume: "Volume ambient",
+    countdownVolume: "Volume countdown",
+    defaultOffNote: "Audio nonaktif secara default dan hanya berjalan setelah interaksi kamu.",
+    playbackError: "Audio tidak bisa diputar di perangkat ini. Kamu tetap bisa lanjut tanpa suara."
+  },
+  motivation: {
+    title: "Motivasi Latihan",
+    saveSession: "Simpan Sesi",
+    sessionSaved: "Sesi tersimpan. Progress diperbarui.",
+    currentStreak: "Streak saat ini",
+    bestStreak: "Streak terbaik",
+    totalSessions: "Total sesi",
+    overallAccuracy: "Akurasi keseluruhan",
+    dailyTarget: "Target hari ini: {{attempted}} / {{target}} percobaan",
+    dailyTargetAria: "Progres target harian {{percent}} persen",
+    badges: {
+      firstSession: {
+        title: "Langkah Awal",
+        description: "Selesaikan minimal satu sesi tersimpan."
+      },
+      hotStreak: {
+        title: "Streak Panas",
+        description: "Pertahankan streak latihan 3 hari."
+      },
+      accuracyAce: {
+        title: "Akurasi Jagoan",
+        description: "Capai minimal 80% akurasi pada sesi tersimpan."
+      },
+      speedRunner: {
+        title: "Pelari Cepat",
+        description: "Raih 10+ jawaban benar di Kejar Waktu."
+      }
+    }
+  },
   curriculum: {
     title: "Kurikulum Abakus",
     description: "Belajar dari dasar hingga mahir lewat tahap Junior, Foundation, Advanced, dan Grand Master.",

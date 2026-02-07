@@ -4,7 +4,12 @@ import { useTranslation } from "react-i18next";
 import AnswerInputDisplay from "../features/practice/components/AnswerInputDisplay.jsx";
 import Numpad from "../features/practice/components/Numpad.jsx";
 import PracticeSettingsForm from "../features/practice/components/PracticeSettingsForm.jsx";
+import PracticeAudioControls from "../features/practice/components/PracticeAudioControls.jsx";
+import PracticeMotivationCard from "../features/practice/components/PracticeMotivationCard.jsx";
 import { formatSignedRow } from "../features/practice/domain/practiceSession.js";
+import { usePracticeAudio } from "../features/practice/hooks/usePracticeAudio.js";
+import { usePracticeAudioSettings } from "../features/practice/hooks/usePracticeAudioSettings.js";
+import { usePracticeProgress } from "../features/practice/hooks/usePracticeProgress.js";
 import { usePracticeQuestion } from "../features/practice/hooks/usePracticeQuestion.js";
 import { usePracticeSettings } from "../features/practice/hooks/usePracticeSettings.js";
 import { parseCurriculumPresetSearch } from "../shared/presets/curriculumPresetQuery.js";
@@ -24,11 +29,21 @@ const AnkiPage = () => {
   const prefillSignature = searchParams.toString();
   const appliedPrefillSignatureRef = useRef("");
   const { settings, updateSetting, resetSettings, applyPreset } = usePracticeSettings();
+  const { audioSettings, updateAudioSetting, resetAudioSettings } = usePracticeAudioSettings();
+  const { snapshot, recordSession } = usePracticeProgress();
   const { question, error, nextQuestion } = usePracticeQuestion(settings);
   const [answerInput, setAnswerInput] = useState("");
   const [result, setResult] = useState(null);
   const [stats, setStats] = useState({ correct: 0, attempted: 0 });
   const [prefillMeta, setPrefillMeta] = useState(null);
+  const [audioError, setAudioError] = useState("");
+  const [saveMessage, setSaveMessage] = useState("");
+  const { startAmbient, stopAll } = usePracticeAudio({
+    enabled: audioSettings.bgmEnabled,
+    ambientVolume: audioSettings.masterVolume,
+    countdownVolume: audioSettings.countdownVolume,
+    onError: () => setAudioError(t("audio.playbackError"))
+  });
 
   useEffect(() => {
     if (!prefillSignature || appliedPrefillSignatureRef.current === prefillSignature) {
@@ -49,6 +64,10 @@ const AnkiPage = () => {
   useEffect(() => {
     nextQuestion();
   }, [nextQuestion]);
+
+  useEffect(() => () => {
+    stopAll();
+  }, [stopAll]);
 
   const accuracy = useMemo(() => {
     if (stats.attempted === 0) {
@@ -72,10 +91,16 @@ const AnkiPage = () => {
   }, [prefillMeta, t]);
 
   const handleDigit = (digit) => {
+    startAmbient();
+    setAudioError("");
+    setSaveMessage("");
     setAnswerInput((prev) => (prev === "0" ? digit : `${prev}${digit}`));
   };
 
   const handleToggleSign = () => {
+    startAmbient();
+    setAudioError("");
+    setSaveMessage("");
     setAnswerInput((prev) => {
       if (!prev) {
         return "-";
@@ -86,14 +111,21 @@ const AnkiPage = () => {
   };
 
   const handleBackspace = () => {
+    startAmbient();
+    setAudioError("");
+    setSaveMessage("");
     setAnswerInput((prev) => prev.slice(0, -1));
   };
 
   const handleClear = () => {
+    setSaveMessage("");
     setAnswerInput("");
   };
 
   const handleCheck = () => {
+    startAmbient();
+    setAudioError("");
+    setSaveMessage("");
     if (!question) {
       return;
     }
@@ -117,9 +149,35 @@ const AnkiPage = () => {
   };
 
   const handleNext = () => {
+    startAmbient();
+    setAudioError("");
+    setSaveMessage("");
     setAnswerInput("");
     setResult(null);
     nextQuestion();
+  };
+
+  const handleResetAllSettings = () => {
+    resetSettings();
+    resetAudioSettings();
+    stopAll();
+    setAudioError("");
+  };
+
+  const handleSaveSession = () => {
+    if (stats.attempted <= 0) {
+      return;
+    }
+
+    recordSession({
+      mode: "anki",
+      correct: stats.correct,
+      attempted: stats.attempted
+    });
+    setSaveMessage(t("motivation.sessionSaved"));
+    setStats({ correct: 0, attempted: 0 });
+    setResult(null);
+    setAnswerInput("");
   };
 
   return (
@@ -137,7 +195,9 @@ const AnkiPage = () => {
         </section>
       ) : null}
 
-      <PracticeSettingsForm settings={settings} onChange={updateSetting} onReset={resetSettings} />
+      <PracticeSettingsForm settings={settings} onChange={updateSetting} onReset={handleResetAllSettings} />
+      <PracticeAudioControls settings={audioSettings} onChange={updateAudioSetting} />
+      <PracticeMotivationCard snapshot={snapshot} />
 
       <section className="practice-card" aria-live="polite">
         <div className="practice-stats">
@@ -147,6 +207,19 @@ const AnkiPage = () => {
         </div>
 
         {error ? <p className="error-text">{error}</p> : null}
+        {audioError ? <p className="error-text">{audioError}</p> : null}
+        {saveMessage ? <p className="check-result" role="status">{saveMessage}</p> : null}
+
+        <div className="action-row">
+          <button
+            type="button"
+            className="btn btn-secondary"
+            disabled={stats.attempted <= 0}
+            onClick={handleSaveSession}
+          >
+            {t("motivation.saveSession")}
+          </button>
+        </div>
 
         {question ? (
           <>

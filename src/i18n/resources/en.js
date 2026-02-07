@@ -144,6 +144,43 @@ const en = {
     ready: "Ready to start your timed drill.",
     sessionComplete: "Session complete. Score: {{correct}} correct, {{accuracy}}% accuracy."
   },
+  audio: {
+    title: "Practice Audio",
+    enableBgm: "Enable BGM",
+    masterVolume: "Ambient volume",
+    countdownVolume: "Countdown volume",
+    defaultOffNote: "Audio is disabled by default and only starts after your interaction.",
+    playbackError: "Audio could not start on this device. You can continue without sound."
+  },
+  motivation: {
+    title: "Practice Motivation",
+    saveSession: "Save Session",
+    sessionSaved: "Session saved. Progress updated.",
+    currentStreak: "Current streak",
+    bestStreak: "Best streak",
+    totalSessions: "Total sessions",
+    overallAccuracy: "Overall accuracy",
+    dailyTarget: "Today target: {{attempted}} / {{target}} attempts",
+    dailyTargetAria: "Daily target progress {{percent}} percent",
+    badges: {
+      firstSession: {
+        title: "First Step",
+        description: "Complete at least one saved session."
+      },
+      hotStreak: {
+        title: "Hot Streak",
+        description: "Maintain a 3-day practice streak."
+      },
+      accuracyAce: {
+        title: "Accuracy Ace",
+        description: "Reach at least 80% accuracy in any saved session."
+      },
+      speedRunner: {
+        title: "Speed Runner",
+        description: "Get 10+ correct answers in Time Attack."
+      }
+    }
+  },
   curriculum: {
     title: "Abacus Curriculum",
     description: "Study from beginner to expert through Junior, Foundation, Advanced, and Grand Master stages.",
