@@ -5,7 +5,7 @@ import { validateWorksheetConfig } from "../src/domain/worksheet/validation.js";
 
 const baseConfig = {
   operationMode: "mixed",
-  questionCount: 12,
+  questionCount: 10,
   rowsPerQuestion: 4,
   digits: 3,
   paperSize: "letter",
@@ -21,7 +21,7 @@ describe("generator and validation", () => {
       ...baseConfig,
       questionCount: 0,
       rowsPerQuestion: 30,
-      digits: 9
+      digits: 11
     });
 
     expect(result.valid).toBe(false);
@@ -43,7 +43,7 @@ describe("generator and validation", () => {
     const result = generateWorksheet({
       ...baseConfig,
       operationMode: "subtraction",
-      questionCount: 20,
+      questionCount: 10,
       seed: "subtraction-check"
     });
 
@@ -61,7 +61,7 @@ describe("generator and validation", () => {
     const result = generateWorksheet({
       ...baseConfig,
       operationMode: "mixed",
-      questionCount: 40,
+      questionCount: 10,
       rowsPerQuestion: 6,
       allowNegativeIntermediate: false,
       allowNegativeFinal: false,
@@ -85,7 +85,7 @@ describe("generator and validation", () => {
     const result = generateWorksheet({
       ...baseConfig,
       digits,
-      questionCount: 50,
+      questionCount: 10,
       rowsPerQuestion: 8,
       seed: "digits-bound"
     });

@@ -36,7 +36,7 @@ const applyCommonPracticeFields = (params, warnings) => {
 
   const digits = params.get("digits");
   if (digits) {
-    const parsed = intInRange(digits, 1, 5);
+    const parsed = intInRange(digits, 1, 10);
     if (parsed === null) {
       warnings.push("digits");
     } else {
@@ -46,7 +46,7 @@ const applyCommonPracticeFields = (params, warnings) => {
 
   const rowsPerQuestion = params.get("rowsPerQuestion");
   if (rowsPerQuestion) {
-    const parsed = intInRange(rowsPerQuestion, 2, 10);
+    const parsed = intInRange(rowsPerQuestion, 1, 10);
     if (parsed === null) {
       warnings.push("rowsPerQuestion");
     } else {
@@ -89,7 +89,7 @@ export const parseCurriculumPresetSearch = (searchParams, options = {}) => {
   if (options.includeQuestionCount) {
     const questionCount = searchParams.get("questionCount");
     if (questionCount) {
-      const parsed = intInRange(questionCount, 1, 200);
+      const parsed = intInRange(questionCount, 1, 10);
       if (parsed === null) {
         warnings.push("questionCount");
       } else {

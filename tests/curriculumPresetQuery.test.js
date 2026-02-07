@@ -4,7 +4,7 @@ import { buildCurriculumToolLink, parseCurriculumPresetSearch } from "../src/sha
 
 describe("curriculumPresetQuery", () => {
   it("parses valid curriculum preset", () => {
-    const params = new URLSearchParams("source=curriculum&lesson=J1-L1&operationMode=addition&digits=2&rowsPerQuestion=4&questionCount=30");
+    const params = new URLSearchParams("source=curriculum&lesson=J1-L1&operationMode=addition&digits=2&rowsPerQuestion=4&questionCount=10");
 
     const parsed = parseCurriculumPresetSearch(params, { includeQuestionCount: true });
 
@@ -13,7 +13,7 @@ describe("curriculumPresetQuery", () => {
       operationMode: "addition",
       digits: 2,
       rowsPerQuestion: 4,
-      questionCount: 30
+      questionCount: 10
     });
     expect(parsed.hasWarnings).toBe(false);
   });

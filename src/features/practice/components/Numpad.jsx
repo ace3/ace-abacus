@@ -26,16 +26,16 @@ const Numpad = ({ onDigit, onToggleSign, onBackspace, onClear, onSubmit, submitL
 
   return (
     <section className="numpad-shell" aria-label={t("practice.numpadLabel")}>
+      <div className="numpad-actions">
+        <button type="button" className="btn btn-secondary" onClick={onClear}>{t("practice.clear")}</button>
+        <button type="button" className="btn btn-primary" onClick={onSubmit}>{submitLabel}</button>
+      </div>
       <div className="numpad-grid">
         {keypadRows.flat().map((key) => (
           <button key={key} type="button" className="numpad-key" onClick={() => handleKey(key)}>
             {key}
           </button>
         ))}
-      </div>
-      <div className="numpad-actions">
-        <button type="button" className="btn btn-secondary" onClick={onClear}>{t("practice.clear")}</button>
-        <button type="button" className="btn btn-primary" onClick={onSubmit}>{submitLabel}</button>
       </div>
     </section>
   );

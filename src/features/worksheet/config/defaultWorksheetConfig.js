@@ -1,6 +1,6 @@
 export const defaultWorksheetConfig = {
   operationMode: "addition",
-  questionCount: 30,
+  questionCount: 10,
   rowsPerQuestion: 4,
   digits: 3,
   paperSize: "letter",

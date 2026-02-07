@@ -36,7 +36,7 @@ export const sipCurriculumStages = [
             { id: "Gunakan jari konsisten untuk aktivasi manik atas/bawah.", en: "Use consistent finger pattern for upper/lower bead moves." },
             { id: "Fokus ke ritme gerakan, bukan kecepatan.", en: "Prioritize movement rhythm over speed." }
           ],
-          generatorPreset: { operationMode: "addition", digits: 1, rowsPerQuestion: 3, questionCount: 20, allowNegativeIntermediate: false, allowNegativeFinal: false },
+          generatorPreset: { operationMode: "addition", digits: 1, rowsPerQuestion: 3, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
           ankiPreset: { operationMode: "addition", digits: 1, rowsPerQuestion: 3, allowNegativeIntermediate: false, allowNegativeFinal: false },
           timeAttackPreset: { operationMode: "addition", digits: 1, rowsPerQuestion: 3, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 30 }
         })
@@ -56,7 +56,7 @@ export const sipCurriculumStages = [
             { id: "Gunakan rumus sahabat lima sebelum operasi langsung.", en: "Apply five-complement before direct operations." },
             { id: "Hindari jeda panjang antar baris soal.", en: "Avoid long pauses between rows." }
           ],
-          generatorPreset: { operationMode: "mixed", digits: 1, rowsPerQuestion: 4, questionCount: 25, allowNegativeIntermediate: false, allowNegativeFinal: false },
+          generatorPreset: { operationMode: "mixed", digits: 1, rowsPerQuestion: 4, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
           ankiPreset: { operationMode: "mixed", digits: 1, rowsPerQuestion: 4, allowNegativeIntermediate: false, allowNegativeFinal: false },
           timeAttackPreset: { operationMode: "mixed", digits: 1, rowsPerQuestion: 4, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 30 }
         })
@@ -76,7 +76,7 @@ export const sipCurriculumStages = [
             { id: "Aktifkan pinjam/simpan di nilai tempat berikutnya.", en: "Carry/borrow on the next place value." },
             { id: "Jaga posisi abakus netral setelah tiap soal.", en: "Reset abacus to neutral after each question." }
           ],
-          generatorPreset: { operationMode: "mixed", digits: 2, rowsPerQuestion: 4, questionCount: 25, allowNegativeIntermediate: false, allowNegativeFinal: false },
+          generatorPreset: { operationMode: "mixed", digits: 2, rowsPerQuestion: 4, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
           ankiPreset: { operationMode: "mixed", digits: 2, rowsPerQuestion: 4, allowNegativeIntermediate: false, allowNegativeFinal: false },
           timeAttackPreset: { operationMode: "mixed", digits: 2, rowsPerQuestion: 4, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 60 }
         })
@@ -96,7 +96,7 @@ export const sipCurriculumStages = [
             { id: "Gunakan chunking 2 baris sekali lihat.", en: "Use 2-row chunking while reading." },
             { id: "Catat kesalahan pola berulang untuk review.", en: "Track recurring error patterns for review." }
           ],
-          generatorPreset: { operationMode: "mixed", digits: 2, rowsPerQuestion: 5, questionCount: 30, allowNegativeIntermediate: false, allowNegativeFinal: false },
+          generatorPreset: { operationMode: "mixed", digits: 2, rowsPerQuestion: 5, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
           ankiPreset: { operationMode: "mixed", digits: 2, rowsPerQuestion: 5, allowNegativeIntermediate: false, allowNegativeFinal: false },
           timeAttackPreset: { operationMode: "mixed", digits: 2, rowsPerQuestion: 5, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 60 }
         })
@@ -117,7 +117,7 @@ export const sipCurriculumStages = [
           rules: [
             { id: "Periksa nilai tempat sebelum pindah baris.", en: "Check place value before moving to next row." }
           ],
-          generatorPreset: { operationMode: "mixed", digits: 2, rowsPerQuestion: 5, questionCount: 35, allowNegativeIntermediate: false, allowNegativeFinal: false },
+          generatorPreset: { operationMode: "mixed", digits: 2, rowsPerQuestion: 5, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
           ankiPreset: { operationMode: "mixed", digits: 2, rowsPerQuestion: 5, allowNegativeIntermediate: false, allowNegativeFinal: false },
           timeAttackPreset: { operationMode: "mixed", digits: 2, rowsPerQuestion: 5, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 60 }
         })
@@ -136,7 +136,7 @@ export const sipCurriculumStages = [
           rules: [
             { id: "Gunakan strategi kiri-ke-kanan per nilai tempat.", en: "Apply left-to-right place-value strategy." }
           ],
-          generatorPreset: { operationMode: "mixed", digits: 3, rowsPerQuestion: 5, questionCount: 35, allowNegativeIntermediate: false, allowNegativeFinal: false },
+          generatorPreset: { operationMode: "mixed", digits: 3, rowsPerQuestion: 5, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
           ankiPreset: { operationMode: "mixed", digits: 3, rowsPerQuestion: 5, allowNegativeIntermediate: false, allowNegativeFinal: false },
           timeAttackPreset: { operationMode: "mixed", digits: 3, rowsPerQuestion: 5, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 60 }
         })
@@ -155,7 +155,7 @@ export const sipCurriculumStages = [
           rules: [
             { id: "Latih kombinasi 2 digit dengan pola tetap.", en: "Practice fixed-pattern 2-digit combinations." }
           ],
-          generatorPreset: { operationMode: "addition", digits: 3, rowsPerQuestion: 6, questionCount: 40, allowNegativeIntermediate: false, allowNegativeFinal: false },
+          generatorPreset: { operationMode: "addition", digits: 3, rowsPerQuestion: 6, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
           ankiPreset: { operationMode: "addition", digits: 3, rowsPerQuestion: 6, allowNegativeIntermediate: false, allowNegativeFinal: false },
           timeAttackPreset: { operationMode: "addition", digits: 3, rowsPerQuestion: 6, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 60 }
         })
@@ -174,7 +174,7 @@ export const sipCurriculumStages = [
           rules: [
             { id: "Validasi hasil lewat perkalian balik saat latihan.", en: "Validate answers with reverse multiplication." }
           ],
-          generatorPreset: { operationMode: "mixed", digits: 3, rowsPerQuestion: 6, questionCount: 40, allowNegativeIntermediate: false, allowNegativeFinal: false },
+          generatorPreset: { operationMode: "mixed", digits: 3, rowsPerQuestion: 6, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
           ankiPreset: { operationMode: "mixed", digits: 3, rowsPerQuestion: 6, allowNegativeIntermediate: false, allowNegativeFinal: false },
           timeAttackPreset: { operationMode: "mixed", digits: 3, rowsPerQuestion: 6, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 60 }
         })
@@ -195,7 +195,7 @@ export const sipCurriculumStages = [
           rules: [
             { id: "Fokus ketelitian digit tengah untuk hasil akhir.", en: "Prioritize middle-digit precision." }
           ],
-          generatorPreset: { operationMode: "addition", digits: 4, rowsPerQuestion: 6, questionCount: 45, allowNegativeIntermediate: false, allowNegativeFinal: false },
+          generatorPreset: { operationMode: "addition", digits: 4, rowsPerQuestion: 6, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
           ankiPreset: { operationMode: "addition", digits: 4, rowsPerQuestion: 6, allowNegativeIntermediate: false, allowNegativeFinal: false },
           timeAttackPreset: { operationMode: "addition", digits: 4, rowsPerQuestion: 6, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 60 }
         })
@@ -214,7 +214,7 @@ export const sipCurriculumStages = [
           rules: [
             { id: "Gunakan estimasi awal sebelum operasi detail.", en: "Estimate first before detailed operations." }
           ],
-          generatorPreset: { operationMode: "mixed", digits: 4, rowsPerQuestion: 6, questionCount: 45, allowNegativeIntermediate: false, allowNegativeFinal: false },
+          generatorPreset: { operationMode: "mixed", digits: 4, rowsPerQuestion: 6, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
           ankiPreset: { operationMode: "mixed", digits: 4, rowsPerQuestion: 6, allowNegativeIntermediate: false, allowNegativeFinal: false },
           timeAttackPreset: { operationMode: "mixed", digits: 4, rowsPerQuestion: 6, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 60 }
         })
@@ -233,7 +233,7 @@ export const sipCurriculumStages = [
           rules: [
             { id: "Selalu sejajarkan posisi desimal sebelum proses.", en: "Always align decimal positions first." }
           ],
-          generatorPreset: { operationMode: "mixed", digits: 4, rowsPerQuestion: 7, questionCount: 45, allowNegativeIntermediate: false, allowNegativeFinal: false },
+          generatorPreset: { operationMode: "mixed", digits: 4, rowsPerQuestion: 7, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
           ankiPreset: { operationMode: "mixed", digits: 4, rowsPerQuestion: 7, allowNegativeIntermediate: false, allowNegativeFinal: false },
           timeAttackPreset: { operationMode: "mixed", digits: 4, rowsPerQuestion: 7, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 120 }
         })
@@ -252,7 +252,7 @@ export const sipCurriculumStages = [
           rules: [
             { id: "Validasi digit akhir sebelum submit jawaban.", en: "Validate final digit before submitting." }
           ],
-          generatorPreset: { operationMode: "mixed", digits: 5, rowsPerQuestion: 7, questionCount: 50, allowNegativeIntermediate: true, allowNegativeFinal: true },
+          generatorPreset: { operationMode: "mixed", digits: 5, rowsPerQuestion: 7, questionCount: 10, allowNegativeIntermediate: true, allowNegativeFinal: true },
           ankiPreset: { operationMode: "mixed", digits: 5, rowsPerQuestion: 7, allowNegativeIntermediate: true, allowNegativeFinal: true },
           timeAttackPreset: { operationMode: "mixed", digits: 5, rowsPerQuestion: 7, allowNegativeIntermediate: true, allowNegativeFinal: true, duration: 120 }
         })
@@ -273,7 +273,7 @@ export const sipCurriculumStages = [
           rules: [
             { id: "Gunakan checkpoint internal setiap 2 baris.", en: "Use internal checkpoints every 2 rows." }
           ],
-          generatorPreset: { operationMode: "mixed", digits: 5, rowsPerQuestion: 8, questionCount: 50, allowNegativeIntermediate: true, allowNegativeFinal: true },
+          generatorPreset: { operationMode: "mixed", digits: 5, rowsPerQuestion: 8, questionCount: 10, allowNegativeIntermediate: true, allowNegativeFinal: true },
           ankiPreset: { operationMode: "mixed", digits: 5, rowsPerQuestion: 8, allowNegativeIntermediate: true, allowNegativeFinal: true },
           timeAttackPreset: { operationMode: "mixed", digits: 5, rowsPerQuestion: 8, allowNegativeIntermediate: true, allowNegativeFinal: true, duration: 120 }
         })
@@ -292,7 +292,7 @@ export const sipCurriculumStages = [
           rules: [
             { id: "Mulai dari estimasi rentang hasil akar terlebih dahulu.", en: "Start with root range estimation first." }
           ],
-          generatorPreset: { operationMode: "addition", digits: 5, rowsPerQuestion: 8, questionCount: 50, allowNegativeIntermediate: false, allowNegativeFinal: false },
+          generatorPreset: { operationMode: "addition", digits: 5, rowsPerQuestion: 8, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
           ankiPreset: { operationMode: "addition", digits: 5, rowsPerQuestion: 8, allowNegativeIntermediate: false, allowNegativeFinal: false },
           timeAttackPreset: { operationMode: "addition", digits: 5, rowsPerQuestion: 8, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 120 }
         })
@@ -311,7 +311,7 @@ export const sipCurriculumStages = [
           rules: [
             { id: "Jaga disiplin tempo per soal sesuai target.", en: "Maintain strict target pace per question." }
           ],
-          generatorPreset: { operationMode: "mixed", digits: 5, rowsPerQuestion: 10, questionCount: 60, allowNegativeIntermediate: true, allowNegativeFinal: true },
+          generatorPreset: { operationMode: "mixed", digits: 5, rowsPerQuestion: 10, questionCount: 10, allowNegativeIntermediate: true, allowNegativeFinal: true },
           ankiPreset: { operationMode: "mixed", digits: 5, rowsPerQuestion: 10, allowNegativeIntermediate: true, allowNegativeFinal: true },
           timeAttackPreset: { operationMode: "mixed", digits: 5, rowsPerQuestion: 10, allowNegativeIntermediate: true, allowNegativeFinal: true, duration: 120 }
         })

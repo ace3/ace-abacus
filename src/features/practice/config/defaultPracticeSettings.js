@@ -19,10 +19,10 @@ export const sanitizePracticeSettings = (value) => {
   }
 
   const digits = Number.parseInt(String(next.digits), 10);
-  next.digits = Number.isInteger(digits) && digits >= 1 && digits <= 5 ? digits : defaultPracticeSettings.digits;
+  next.digits = Number.isInteger(digits) && digits >= 1 && digits <= 10 ? digits : defaultPracticeSettings.digits;
 
   const rows = Number.parseInt(String(next.rowsPerQuestion), 10);
-  next.rowsPerQuestion = Number.isInteger(rows) && rows >= 2 && rows <= 10 ? rows : defaultPracticeSettings.rowsPerQuestion;
+  next.rowsPerQuestion = Number.isInteger(rows) && rows >= 1 && rows <= 10 ? rows : defaultPracticeSettings.rowsPerQuestion;
 
   next.allowNegativeIntermediate = Boolean(next.allowNegativeIntermediate);
   next.allowNegativeFinal = Boolean(next.allowNegativeFinal);

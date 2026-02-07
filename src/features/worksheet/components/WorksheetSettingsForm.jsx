@@ -9,6 +9,7 @@ const WorksheetSettingsForm = ({
   onPrintAnswerKey
 }) => {
   const { t } = useTranslation();
+  const oneToTen = Array.from({ length: 10 }, (_, index) => index + 1);
 
   const submitGenerate = (event) => {
     event.preventDefault();
@@ -31,17 +32,29 @@ const WorksheetSettingsForm = ({
 
           <label>
             {t("worksheet.questions")}
-            <input name="questionCount" type="number" min="1" max="200" value={config.questionCount} onChange={onChange} required />
+            <select name="questionCount" value={String(config.questionCount)} onChange={onChange}>
+              {oneToTen.map((value) => (
+                <option key={`q-${value}`} value={value}>{value}</option>
+              ))}
+            </select>
           </label>
 
           <label>
             {t("worksheet.rowsPerQuestion")}
-            <input name="rowsPerQuestion" type="number" min="2" max="10" value={config.rowsPerQuestion} onChange={onChange} required />
+            <select name="rowsPerQuestion" value={String(config.rowsPerQuestion)} onChange={onChange}>
+              {oneToTen.map((value) => (
+                <option key={`r-${value}`} value={value}>{value}</option>
+              ))}
+            </select>
           </label>
 
           <label>
             {t("worksheet.maxDigits")}
-            <input name="digits" type="number" min="1" max="5" value={config.digits} onChange={onChange} required />
+            <select name="digits" value={String(config.digits)} onChange={onChange}>
+              {oneToTen.map((value) => (
+                <option key={`d-${value}`} value={value}>{value}</option>
+              ))}
+            </select>
           </label>
 
           <label>

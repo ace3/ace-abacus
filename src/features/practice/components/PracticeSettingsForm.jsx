@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 
 const PracticeSettingsForm = ({ settings, onChange, onReset, extraControls }) => {
   const { t } = useTranslation();
+  const oneToTen = Array.from({ length: 10 }, (_, index) => index + 1);
 
   return (
     <section className="practice-panel" aria-labelledby="practice-settings-title">
@@ -22,12 +23,20 @@ const PracticeSettingsForm = ({ settings, onChange, onReset, extraControls }) =>
 
         <label>
           {t("practice.digits")}
-          <input name="digits" type="number" min="1" max="5" value={settings.digits} onChange={onChange} />
+          <select name="digits" value={String(settings.digits)} onChange={onChange}>
+            {oneToTen.map((value) => (
+              <option key={`pd-${value}`} value={value}>{value}</option>
+            ))}
+          </select>
         </label>
 
         <label>
           {t("practice.rowsPerQuestion")}
-          <input name="rowsPerQuestion" type="number" min="2" max="10" value={settings.rowsPerQuestion} onChange={onChange} />
+          <select name="rowsPerQuestion" value={String(settings.rowsPerQuestion)} onChange={onChange}>
+            {oneToTen.map((value) => (
+              <option key={`pr-${value}`} value={value}>{value}</option>
+            ))}
+          </select>
         </label>
 
         {extraControls}

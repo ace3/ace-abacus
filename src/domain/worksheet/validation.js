@@ -1,7 +1,7 @@
 const LIMITS = {
-  questionCount: { min: 1, max: 200 },
-  rowsPerQuestion: { min: 2, max: 10 },
-  digits: { min: 1, max: 5 }
+  questionCount: { min: 1, max: 10 },
+  rowsPerQuestion: { min: 1, max: 10 },
+  digits: { min: 1, max: 10 }
 };
 
 const asInteger = (value) => Number.parseInt(String(value), 10);

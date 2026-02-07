@@ -73,11 +73,11 @@ describe("Generator page", () => {
   it("shows validation error for invalid questions input", () => {
     renderAtRoute("/generator");
 
-    const input = screen.getByRole("spinbutton", { name: "Jumlah Soal" });
+    const input = screen.getByRole("combobox", { name: "Jumlah Soal" });
     fireEvent.change(input, { target: { value: "0" } });
     fireEvent.click(screen.getByRole("button", { name: "Buat Worksheet" }));
 
-    expect(screen.getByText("questionCount harus di antara 1 dan 200.")).toBeInTheDocument();
+    expect(screen.getByText("questionCount harus di antara 1 dan 10.")).toBeInTheDocument();
   });
 
   it("prints worksheet and answer key via window.print", () => {
@@ -111,14 +111,14 @@ describe("Practice pages", () => {
     renderAtRoute("/anki?source=curriculum&lesson=J1-L1&operationMode=addition&digits=1&rowsPerQuestion=3");
 
     const modeSelect = screen.getByRole("combobox", { name: "Operasi" });
-    const digitsInput = screen.getByRole("spinbutton", { name: "Digit" });
+    const digitsInput = screen.getByRole("combobox", { name: "Digit" });
 
     fireEvent.change(modeSelect, { target: { value: "subtraction" } });
     fireEvent.change(digitsInput, { target: { value: "5" } });
     fireEvent.click(screen.getByRole("button", { name: "Periksa" }));
 
     expect(modeSelect).toHaveValue("subtraction");
-    expect(digitsInput).toHaveValue(5);
+    expect(digitsInput).toHaveValue("5");
   });
 
   it("runs time attack and finishes when timer reaches zero", () => {
