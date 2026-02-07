@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import AnswerKeyPreview from "../features/worksheet/components/AnswerKeyPreview.jsx";
@@ -12,6 +12,8 @@ import { setPrintPageSize } from "../shared/print/printPage.js";
 const GeneratorPage = () => {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
+  const prefillSignature = searchParams.toString();
+  const appliedPrefillSignatureRef = useRef("");
   const [printTarget, setPrintTarget] = useState("worksheet");
   const [prefillMeta, setPrefillMeta] = useState(null);
 
@@ -28,14 +30,20 @@ const GeneratorPage = () => {
   } = useWorksheetGenerator();
 
   useEffect(() => {
-    const parsed = parseCurriculumPresetSearch(searchParams, { includeQuestionCount: true });
+    if (!prefillSignature || appliedPrefillSignatureRef.current === prefillSignature) {
+      return;
+    }
+
+    const parsed = parseCurriculumPresetSearch(new URLSearchParams(prefillSignature), { includeQuestionCount: true });
     if (!parsed) {
+      appliedPrefillSignatureRef.current = prefillSignature;
       return;
     }
 
     applyPreset(parsed.prefill);
     setPrefillMeta({ lesson: parsed.lesson, hasWarnings: parsed.hasWarnings });
-  }, [searchParams, applyPreset]);
+    appliedPrefillSignatureRef.current = prefillSignature;
+  }, [prefillSignature, applyPreset]);
 
   useEffect(() => {
     document.body.dataset.paperSize = config.paperSize;

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import AnswerInputDisplay from "../features/practice/components/AnswerInputDisplay.jsx";
@@ -23,6 +23,8 @@ const normalizeInput = (value) => {
 const TimeAttackPage = () => {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
+  const prefillSignature = searchParams.toString();
+  const appliedPrefillSignatureRef = useRef("");
   const { settings, updateSetting, resetSettings, applyPreset } = usePracticeSettings();
   const { question, error, nextQuestion } = usePracticeQuestion(settings);
   const [duration, setDuration] = useState(60);
@@ -33,18 +35,25 @@ const TimeAttackPage = () => {
   const [prefillMeta, setPrefillMeta] = useState(null);
 
   useEffect(() => {
-    const parsed = parseCurriculumPresetSearch(searchParams, { includeDuration: true });
-    if (!parsed) {
+    if (!prefillSignature || appliedPrefillSignatureRef.current === prefillSignature) {
       return;
     }
 
-    applyPreset(parsed.prefill);
-    if (parsed.prefill.duration) {
-      setDuration(parsed.prefill.duration);
-      setTimeLeft(parsed.prefill.duration);
+    const parsed = parseCurriculumPresetSearch(new URLSearchParams(prefillSignature), { includeDuration: true });
+    if (!parsed) {
+      appliedPrefillSignatureRef.current = prefillSignature;
+      return;
+    }
+
+    const { duration: prefillDuration, ...practicePrefill } = parsed.prefill;
+    applyPreset(practicePrefill);
+    if (prefillDuration) {
+      setDuration(prefillDuration);
+      setTimeLeft(prefillDuration);
     }
     setPrefillMeta({ lesson: parsed.lesson, hasWarnings: parsed.hasWarnings });
-  }, [searchParams, applyPreset]);
+    appliedPrefillSignatureRef.current = prefillSignature;
+  }, [prefillSignature, applyPreset]);
 
   useEffect(() => {
     if (status !== "running") {

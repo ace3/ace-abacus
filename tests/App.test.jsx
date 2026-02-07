@@ -107,6 +107,20 @@ describe("Practice pages", () => {
     expect(screen.queryByText("Benar.")).not.toBeInTheDocument();
   });
 
+  it("keeps controls editable after curriculum prefill", () => {
+    renderAtRoute("/anki?source=curriculum&lesson=J1-L1&operationMode=addition&digits=1&rowsPerQuestion=3");
+
+    const modeSelect = screen.getByRole("combobox", { name: "Operasi" });
+    const digitsInput = screen.getByRole("spinbutton", { name: "Digit" });
+
+    fireEvent.change(modeSelect, { target: { value: "subtraction" } });
+    fireEvent.change(digitsInput, { target: { value: "5" } });
+    fireEvent.click(screen.getByRole("button", { name: "Periksa" }));
+
+    expect(modeSelect).toHaveValue("subtraction");
+    expect(digitsInput).toHaveValue(5);
+  });
+
   it("runs time attack and finishes when timer reaches zero", () => {
     vi.useFakeTimers();
     renderAtRoute("/time-attack");

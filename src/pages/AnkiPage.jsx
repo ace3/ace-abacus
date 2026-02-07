@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import AnswerInputDisplay from "../features/practice/components/AnswerInputDisplay.jsx";
@@ -21,6 +21,8 @@ const normalizeInput = (value) => {
 const AnkiPage = () => {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
+  const prefillSignature = searchParams.toString();
+  const appliedPrefillSignatureRef = useRef("");
   const { settings, updateSetting, resetSettings, applyPreset } = usePracticeSettings();
   const { question, error, nextQuestion } = usePracticeQuestion(settings);
   const [answerInput, setAnswerInput] = useState("");
@@ -29,14 +31,20 @@ const AnkiPage = () => {
   const [prefillMeta, setPrefillMeta] = useState(null);
 
   useEffect(() => {
-    const parsed = parseCurriculumPresetSearch(searchParams);
+    if (!prefillSignature || appliedPrefillSignatureRef.current === prefillSignature) {
+      return;
+    }
+
+    const parsed = parseCurriculumPresetSearch(new URLSearchParams(prefillSignature));
     if (!parsed) {
+      appliedPrefillSignatureRef.current = prefillSignature;
       return;
     }
 
     applyPreset(parsed.prefill);
     setPrefillMeta({ lesson: parsed.lesson, hasWarnings: parsed.hasWarnings });
-  }, [searchParams, applyPreset]);
+    appliedPrefillSignatureRef.current = prefillSignature;
+  }, [prefillSignature, applyPreset]);
 
   useEffect(() => {
     nextQuestion();
