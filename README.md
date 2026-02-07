@@ -1,23 +1,35 @@
 # Abacus Worksheet Generator (React)
 
-Print-first abacus worksheet generator built with React + Vite. No login, no backend.
+Multi-page abacus learning site built with React + Vite. No login, no backend.
 
 ## Features
 
-- Local-first generator focused on printable worksheets
+- Homepage with product overview and quick mode navigation
+- Local-first worksheet generator focused on printable worksheets
 - Addition, subtraction, or mixed vertical multi-row practice
 - Configurable questions, rows, max digits, negatives policy
 - Optional separate answer key page
 - Deterministic generation via seed
 - Print presets for US Letter (default) and A4
+- Anki-style practice mode with phone/tablet numpad
+- Time Attack mode with configurable countdown durations
 - Netlify-ready static build
+
+## Routes
+
+- `/` Home page
+- `/generator` Worksheet generator
+- `/anki` Anki-style practice
+- `/time-attack` Countdown practice
 
 ## Project Structure
 
 - `src/domain/worksheet`: pure worksheet generation and validation logic
 - `src/features/worksheet/components`: UI blocks for settings/preview/warnings
 - `src/features/worksheet/hooks`: feature state and orchestration hooks
-- `src/shared`: reusable format/print helpers
+- `src/features/practice`: practice settings, question/session logic, and numpad components
+- `src/app`: route and shell composition
+- `src/pages`: route-level page components
 
 This structure is meant for easy future feature additions without touching core domain logic.
 
