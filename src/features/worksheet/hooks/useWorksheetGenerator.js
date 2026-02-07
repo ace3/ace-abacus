@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { generateWorksheet } from "../../../domain/worksheet/generator.js";
 import { validateWorksheetConfig } from "../../../domain/worksheet/validation.js";
 import { defaultWorksheetConfig } from "../config/defaultWorksheetConfig.js";
@@ -24,15 +24,27 @@ export const useWorksheetGenerator = () => {
     return new Date(worksheetDoc.meta.generatedAt).toLocaleString();
   }, [worksheetDoc]);
 
-  const handleConfigChange = (event) => {
+  const handleConfigChange = useCallback((event) => {
     const { name, value, type, checked } = event.target;
     setConfig((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value
     }));
-  };
+  }, []);
 
-  const generate = () => {
+  const applyPreset = useCallback((partialConfig) => {
+    setConfig((prev) => {
+      const merged = {
+        ...prev,
+        ...partialConfig
+      };
+
+      const validation = validateWorksheetConfig(normalizeCandidateConfig(merged));
+      return validation.valid ? validation.normalized : prev;
+    });
+  }, []);
+
+  const generate = useCallback(() => {
     const candidateConfig = normalizeCandidateConfig(config);
     const validation = validateWorksheetConfig(candidateConfig);
 
@@ -55,7 +67,7 @@ export const useWorksheetGenerator = () => {
     setWarnings(result.warnings);
     setWorksheetDoc(result.document);
     return true;
-  };
+  }, [config]);
 
   return {
     config,
@@ -65,6 +77,7 @@ export const useWorksheetGenerator = () => {
     generatedAtText,
     setErrors,
     handleConfigChange,
-    generate
+    generate,
+    applyPreset
   };
 };

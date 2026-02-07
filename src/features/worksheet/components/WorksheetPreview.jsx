@@ -1,23 +1,28 @@
+import { useTranslation } from "react-i18next";
 import { formatWorksheetRow } from "../../../shared/format/worksheetFormatters.js";
 
 const WorksheetPreview = ({ worksheetDoc, generatedAtText }) => {
+  const { t } = useTranslation();
+
   if (!worksheetDoc) {
     return null;
   }
+
+  const modeKey = `common.mode.${worksheetDoc.meta.configSnapshot.operationMode}`;
 
   return (
     <section className="print-area worksheet-area" aria-labelledby="worksheet-title">
       <div className="worksheet-sheet">
         <header className="sheet-header">
-          <h2 id="worksheet-title">Abacus Worksheet</h2>
-          <div className="sheet-meta">Generated: {generatedAtText}</div>
+          <h2 id="worksheet-title">{t("worksheet.previewTitle")}</h2>
+          <div className="sheet-meta">{t("worksheet.generatedAt")}: {generatedAtText}</div>
           <div className="student-lines">
-            <span>Name: ____________________</span>
-            <span>Date: ____________________</span>
-            <span>Class: ____________________</span>
+            <span>{t("worksheet.name")}: ____________________</span>
+            <span>{t("worksheet.date")}: ____________________</span>
+            <span>{t("worksheet.class")}: ____________________</span>
           </div>
           <div className="config-note">
-            Mode: {worksheetDoc.meta.configSnapshot.operationMode} | Questions: {worksheetDoc.meta.configSnapshot.questionCount} | Rows: {worksheetDoc.meta.configSnapshot.rowsPerQuestion} | Digits: {worksheetDoc.meta.configSnapshot.digits}
+            {t("worksheet.modeLabel")}: {t(modeKey)} | {t("worksheet.questionLabel")}: {worksheetDoc.meta.configSnapshot.questionCount} | {t("worksheet.rowsLabel")}: {worksheetDoc.meta.configSnapshot.rowsPerQuestion} | {t("worksheet.digitsLabel")}: {worksheetDoc.meta.configSnapshot.digits}
           </div>
         </header>
 

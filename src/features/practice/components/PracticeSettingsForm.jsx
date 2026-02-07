@@ -1,50 +1,56 @@
-const PracticeSettingsForm = ({ settings, onChange, onReset, extraControls }) => (
-  <section className="practice-panel" aria-labelledby="practice-settings-title">
-    <div className="practice-panel-header">
-      <h2 id="practice-settings-title">Practice Settings</h2>
-      <button type="button" className="btn btn-ghost" onClick={onReset}>Reset</button>
-    </div>
+import { useTranslation } from "react-i18next";
 
-    <div className="practice-field-grid">
-      <label>
-        Mode
-        <select name="operationMode" value={settings.operationMode} onChange={onChange}>
-          <option value="addition">Addition</option>
-          <option value="subtraction">Subtraction</option>
-          <option value="mixed">Mixed</option>
-        </select>
-      </label>
+const PracticeSettingsForm = ({ settings, onChange, onReset, extraControls }) => {
+  const { t } = useTranslation();
 
-      <label>
-        Digits
-        <input name="digits" type="number" min="1" max="5" value={settings.digits} onChange={onChange} />
-      </label>
+  return (
+    <section className="practice-panel" aria-labelledby="practice-settings-title">
+      <div className="practice-panel-header">
+        <h2 id="practice-settings-title">{t("practice.settingsTitle")}</h2>
+        <button type="button" className="btn btn-ghost" onClick={onReset}>{t("practice.reset")}</button>
+      </div>
 
-      <label>
-        Rows per Question
-        <input name="rowsPerQuestion" type="number" min="2" max="10" value={settings.rowsPerQuestion} onChange={onChange} />
-      </label>
+      <div className="practice-field-grid">
+        <label>
+          {t("worksheet.operation")}
+          <select name="operationMode" value={settings.operationMode} onChange={onChange}>
+            <option value="addition">{t("common.mode.addition")}</option>
+            <option value="subtraction">{t("common.mode.subtraction")}</option>
+            <option value="mixed">{t("common.mode.mixed")}</option>
+          </select>
+        </label>
 
-      {extraControls}
-    </div>
+        <label>
+          {t("practice.digits")}
+          <input name="digits" type="number" min="1" max="5" value={settings.digits} onChange={onChange} />
+        </label>
 
-    <div className="toggle-grid">
-      <label className="checkbox-field">
-        <input
-          name="allowNegativeIntermediate"
-          type="checkbox"
-          checked={settings.allowNegativeIntermediate}
-          onChange={onChange}
-        />
-        Allow negative intermediate totals
-      </label>
+        <label>
+          {t("practice.rowsPerQuestion")}
+          <input name="rowsPerQuestion" type="number" min="2" max="10" value={settings.rowsPerQuestion} onChange={onChange} />
+        </label>
 
-      <label className="checkbox-field">
-        <input name="allowNegativeFinal" type="checkbox" checked={settings.allowNegativeFinal} onChange={onChange} />
-        Allow negative final answers
-      </label>
-    </div>
-  </section>
-);
+        {extraControls}
+      </div>
+
+      <div className="toggle-grid">
+        <label className="checkbox-field">
+          <input
+            name="allowNegativeIntermediate"
+            type="checkbox"
+            checked={settings.allowNegativeIntermediate}
+            onChange={onChange}
+          />
+          {t("practice.allowNegativeIntermediate")}
+        </label>
+
+        <label className="checkbox-field">
+          <input name="allowNegativeFinal" type="checkbox" checked={settings.allowNegativeFinal} onChange={onChange} />
+          {t("practice.allowNegativeFinal")}
+        </label>
+      </div>
+    </section>
+  );
+};
 
 export default PracticeSettingsForm;

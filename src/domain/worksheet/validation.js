@@ -9,12 +9,12 @@ const asInteger = (value) => Number.parseInt(String(value), 10);
 const validateIntegerRange = (key, value) => {
   const parsed = asInteger(value);
   if (!Number.isInteger(parsed)) {
-    return `${key} must be an integer.`;
+    return `${key} harus berupa bilangan bulat.`;
   }
 
   const range = LIMITS[key];
   if (parsed < range.min || parsed > range.max) {
-    return `${key} must be between ${range.min} and ${range.max}.`;
+    return `${key} harus di antara ${range.min} dan ${range.max}.`;
   }
 
   return null;
@@ -26,11 +26,11 @@ export const validateWorksheetConfig = (config) => {
   const allowedPaper = ["letter", "a4"];
 
   if (!allowedModes.includes(config.operationMode)) {
-    errors.push("operationMode must be addition, subtraction, or mixed.");
+    errors.push("operationMode harus addition, subtraction, atau mixed.");
   }
 
   if (!allowedPaper.includes(config.paperSize)) {
-    errors.push("paperSize must be letter or a4.");
+    errors.push("paperSize harus letter atau a4.");
   }
 
   ["questionCount", "rowsPerQuestion", "digits"].forEach((key) => {
@@ -41,19 +41,19 @@ export const validateWorksheetConfig = (config) => {
   });
 
   if (typeof config.allowNegativeIntermediate !== "boolean") {
-    errors.push("allowNegativeIntermediate must be boolean.");
+    errors.push("allowNegativeIntermediate harus boolean.");
   }
 
   if (typeof config.allowNegativeFinal !== "boolean") {
-    errors.push("allowNegativeFinal must be boolean.");
+    errors.push("allowNegativeFinal harus boolean.");
   }
 
   if (typeof config.includeAnswerKey !== "boolean") {
-    errors.push("includeAnswerKey must be boolean.");
+    errors.push("includeAnswerKey harus boolean.");
   }
 
   if (config.seed && String(config.seed).length > 60) {
-    errors.push("seed must be 60 characters or less.");
+    errors.push("seed maksimal 60 karakter.");
   }
 
   return {

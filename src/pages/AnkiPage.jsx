@@ -1,10 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import AnswerInputDisplay from "../features/practice/components/AnswerInputDisplay.jsx";
 import Numpad from "../features/practice/components/Numpad.jsx";
 import PracticeSettingsForm from "../features/practice/components/PracticeSettingsForm.jsx";
 import { formatSignedRow } from "../features/practice/domain/practiceSession.js";
 import { usePracticeQuestion } from "../features/practice/hooks/usePracticeQuestion.js";
 import { usePracticeSettings } from "../features/practice/hooks/usePracticeSettings.js";
+import { parseCurriculumPresetSearch } from "../shared/presets/curriculumPresetQuery.js";
 
 const normalizeInput = (value) => {
   if (value === "" || value === "-") {
@@ -16,11 +19,24 @@ const normalizeInput = (value) => {
 };
 
 const AnkiPage = () => {
-  const { settings, updateSetting, resetSettings } = usePracticeSettings();
+  const { t } = useTranslation();
+  const [searchParams] = useSearchParams();
+  const { settings, updateSetting, resetSettings, applyPreset } = usePracticeSettings();
   const { question, error, nextQuestion } = usePracticeQuestion(settings);
   const [answerInput, setAnswerInput] = useState("");
   const [result, setResult] = useState(null);
   const [stats, setStats] = useState({ correct: 0, attempted: 0 });
+  const [prefillMeta, setPrefillMeta] = useState(null);
+
+  useEffect(() => {
+    const parsed = parseCurriculumPresetSearch(searchParams);
+    if (!parsed) {
+      return;
+    }
+
+    applyPreset(parsed.prefill);
+    setPrefillMeta({ lesson: parsed.lesson, hasWarnings: parsed.hasWarnings });
+  }, [searchParams, applyPreset]);
 
   useEffect(() => {
     nextQuestion();
@@ -33,6 +49,19 @@ const AnkiPage = () => {
 
     return Math.round((stats.correct / stats.attempted) * 100);
   }, [stats.attempted, stats.correct]);
+
+  const prefillMessages = useMemo(() => {
+    if (!prefillMeta) {
+      return [];
+    }
+
+    const messages = [t("practice.prefillLoaded", { lesson: prefillMeta.lesson })];
+    if (prefillMeta.hasWarnings) {
+      messages.push(t("practice.prefillInvalid"));
+    }
+
+    return messages;
+  }, [prefillMeta, t]);
 
   const handleDigit = (digit) => {
     setAnswerInput((prev) => (prev === "0" ? digit : `${prev}${digit}`));
@@ -63,7 +92,7 @@ const AnkiPage = () => {
 
     const parsed = normalizeInput(answerInput);
     if (parsed === null) {
-      setResult({ valid: false, message: "Enter a valid integer answer." });
+      setResult({ valid: false, message: t("anki.enterValidInteger") });
       return;
     }
 
@@ -75,7 +104,7 @@ const AnkiPage = () => {
     setResult({
       valid: true,
       isCorrect,
-      message: isCorrect ? "Correct." : `Incorrect. Correct answer: ${question.answer}`
+      message: isCorrect ? t("anki.correctShort") : t("anki.incorrectWithAnswer", { answer: question.answer })
     });
   };
 
@@ -88,24 +117,32 @@ const AnkiPage = () => {
   return (
     <section className="page practice-page">
       <header className="page-header">
-        <h1>Anki Practice</h1>
-        <p>Check your answer, review feedback, then move to the next card.</p>
+        <h1>{t("anki.title")}</h1>
+        <p>{t("anki.description")}</p>
       </header>
+
+      {prefillMessages.length > 0 ? (
+        <section className="warning-card" role="status" aria-live="polite">
+          <ul>
+            {prefillMessages.map((message) => <li key={message}>{message}</li>)}
+          </ul>
+        </section>
+      ) : null}
 
       <PracticeSettingsForm settings={settings} onChange={updateSetting} onReset={resetSettings} />
 
       <section className="practice-card" aria-live="polite">
         <div className="practice-stats">
-          <span>Correct: {stats.correct}</span>
-          <span>Attempted: {stats.attempted}</span>
-          <span>Accuracy: {accuracy}%</span>
+          <span>{t("anki.correct")}: {stats.correct}</span>
+          <span>{t("anki.attempted")}: {stats.attempted}</span>
+          <span>{t("anki.accuracy")}: {accuracy}%</span>
         </div>
 
         {error ? <p className="error-text">{error}</p> : null}
 
         {question ? (
           <>
-            <div className="question-rows" aria-label="Question rows">
+            <div className="question-rows" aria-label={t("practice.questionRows")}>
               {question.rows.map((row, index) => (
                 <div key={`${row}-${index}`}>{formatSignedRow(row, index)}</div>
               ))}
@@ -125,7 +162,7 @@ const AnkiPage = () => {
               onBackspace={handleBackspace}
               onClear={handleClear}
               onSubmit={result ? handleNext : handleCheck}
-              submitLabel={result ? "Next" : "Check"}
+              submitLabel={result ? t("practice.next") : t("practice.check")}
             />
           </>
         ) : null}

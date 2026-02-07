@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { defaultPracticeSettings, sanitizePracticeSettings } from "../config/defaultPracticeSettings.js";
 
 const STORAGE_KEY = "abacus.practice.settings.v1";
@@ -27,7 +27,7 @@ export const usePracticeSettings = () => {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
   }, [settings]);
 
-  const updateSetting = (event) => {
+  const updateSetting = useCallback((event) => {
     const { name, value, type, checked } = event.target;
     setSettings((prev) =>
       sanitizePracticeSettings({
@@ -35,17 +35,27 @@ export const usePracticeSettings = () => {
         [name]: type === "checkbox" ? checked : value
       })
     );
-  };
+  }, []);
 
-  const resetSettings = () => {
+  const resetSettings = useCallback(() => {
     setSettings(defaultPracticeSettings);
-  };
+  }, []);
+
+  const applyPreset = useCallback((partialSettings) => {
+    setSettings((prev) =>
+      sanitizePracticeSettings({
+        ...prev,
+        ...partialSettings
+      })
+    );
+  }, []);
 
   const snapshot = useMemo(() => settings, [settings]);
 
   return {
     settings: snapshot,
     updateSetting,
-    resetSettings
+    resetSettings,
+    applyPreset
   };
 };

@@ -28,27 +28,35 @@ const enterAnswerWithNumpad = (value) => {
 };
 
 const computeDisplayedAnswer = () => {
-  const rowContainer = screen.getByLabelText("Question rows");
+  const rowContainer = screen.getByLabelText("Baris soal");
   const lines = within(rowContainer).getAllByText(/^-|^\+|^\d/).map((line) => line.textContent || "0");
   return lines.reduce((sum, line) => sum + Number.parseInt(line.replace("+", "").replaceAll(" ", ""), 10), 0);
 };
 
 afterEach(() => {
   cleanup();
+  window.localStorage.clear();
 });
 
 describe("Routes and pages", () => {
   it("renders home page and links", () => {
     renderAtRoute("/");
 
-    expect(screen.getByText("Abacus Worksheet & Practice Studio")).toBeInTheDocument();
-    expect(screen.getAllByRole("link", { name: "Start Practice" })[0]).toHaveAttribute("href", "/anki");
+    expect(screen.getByText("Studio Kurikulum & Latihan Abakus")).toBeInTheDocument();
+    expect(screen.getAllByRole("link", { name: "Mulai Latihan" })[0]).toHaveAttribute("href", "/anki");
   });
 
   it("redirects unknown route to home", () => {
     renderAtRoute("/missing-page");
 
-    expect(screen.getByText("Abacus Worksheet & Practice Studio")).toBeInTheDocument();
+    expect(screen.getByText("Studio Kurikulum & Latihan Abakus")).toBeInTheDocument();
+  });
+
+  it("renders curriculum page", () => {
+    renderAtRoute("/curriculum");
+
+    expect(screen.getByText("Kurikulum Abakus")).toBeInTheDocument();
+    expect(screen.getByText("Level J1")).toBeInTheDocument();
   });
 });
 
@@ -56,29 +64,29 @@ describe("Generator page", () => {
   it("generates worksheet and shows question cards", () => {
     renderAtRoute("/generator");
 
-    fireEvent.click(screen.getByRole("button", { name: "Generate Worksheet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Buat Worksheet" }));
 
-    expect(screen.getByText("Abacus Worksheet")).toBeInTheDocument();
+    expect(screen.getByText("Worksheet Abakus")).toBeInTheDocument();
     expect(screen.getAllByText("Q1").length).toBeGreaterThan(0);
   });
 
   it("shows validation error for invalid questions input", () => {
     renderAtRoute("/generator");
 
-    const input = screen.getByRole("spinbutton", { name: "Questions" });
+    const input = screen.getByRole("spinbutton", { name: "Jumlah Soal" });
     fireEvent.change(input, { target: { value: "0" } });
-    fireEvent.click(screen.getByRole("button", { name: "Generate Worksheet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Buat Worksheet" }));
 
-    expect(screen.getByText("questionCount must be between 1 and 200.")).toBeInTheDocument();
+    expect(screen.getByText("questionCount harus di antara 1 dan 200.")).toBeInTheDocument();
   });
 
   it("prints worksheet and answer key via window.print", () => {
     const printSpy = vi.spyOn(window, "print").mockImplementation(() => {});
     renderAtRoute("/generator");
 
-    fireEvent.click(screen.getByRole("button", { name: "Generate Worksheet" }));
-    fireEvent.click(screen.getByRole("button", { name: "Print Worksheet" }));
-    fireEvent.click(screen.getByRole("button", { name: "Print Answer Key" }));
+    fireEvent.click(screen.getByRole("button", { name: "Buat Worksheet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Cetak Worksheet" }));
+    fireEvent.click(screen.getByRole("button", { name: "Cetak Kunci Jawaban" }));
 
     expect(printSpy).toHaveBeenCalledTimes(2);
     printSpy.mockRestore();
@@ -92,24 +100,24 @@ describe("Practice pages", () => {
     const answer = computeDisplayedAnswer();
     enterAnswerWithNumpad(answer);
 
-    fireEvent.click(screen.getByRole("button", { name: "Check" }));
-    expect(screen.getByText("Correct.")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Periksa" }));
+    expect(screen.getByText("Benar.")).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole("button", { name: "Next" }));
-    expect(screen.queryByText("Correct.")).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Lanjut" }));
+    expect(screen.queryByText("Benar.")).not.toBeInTheDocument();
   });
 
   it("runs time attack and finishes when timer reaches zero", () => {
     vi.useFakeTimers();
     renderAtRoute("/time-attack");
 
-    fireEvent.click(screen.getByRole("button", { name: "Start" }));
+    fireEvent.click(screen.getByRole("button", { name: "Mulai" }));
 
     act(() => {
       vi.advanceTimersByTime(60_000);
     });
 
-    expect(screen.getByText(/Session complete\./)).toBeInTheDocument();
+    expect(screen.getByText(/Sesi selesai\./)).toBeInTheDocument();
     vi.useRealTimers();
   });
 });

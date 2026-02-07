@@ -1,4 +1,8 @@
+import { useTranslation } from "react-i18next";
+
 const AnswerKeyPreview = ({ worksheetDoc, includeAnswerKey }) => {
+  const { t } = useTranslation();
+
   if (!worksheetDoc || !includeAnswerKey) {
     return null;
   }
@@ -7,7 +11,7 @@ const AnswerKeyPreview = ({ worksheetDoc, includeAnswerKey }) => {
     <section className="print-area answer-key-area" aria-labelledby="answer-key-title">
       <div className="answer-key-sheet">
         <header className="sheet-header">
-          <h2 id="answer-key-title">Answer Key</h2>
+          <h2 id="answer-key-title">{t("worksheet.answerKeyTitle")}</h2>
         </header>
         <ol className="answer-key-list">
           {worksheetDoc.problems.map((problem, index) => (

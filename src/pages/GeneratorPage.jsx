@@ -1,13 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import AnswerKeyPreview from "../features/worksheet/components/AnswerKeyPreview.jsx";
 import WorksheetPreview from "../features/worksheet/components/WorksheetPreview.jsx";
 import WorksheetSettingsForm from "../features/worksheet/components/WorksheetSettingsForm.jsx";
 import WorksheetWarnings from "../features/worksheet/components/WorksheetWarnings.jsx";
 import { useWorksheetGenerator } from "../features/worksheet/hooks/useWorksheetGenerator.js";
+import { parseCurriculumPresetSearch } from "../shared/presets/curriculumPresetQuery.js";
 import { setPrintPageSize } from "../shared/print/printPage.js";
 
 const GeneratorPage = () => {
+  const { t } = useTranslation();
+  const [searchParams] = useSearchParams();
   const [printTarget, setPrintTarget] = useState("worksheet");
+  const [prefillMeta, setPrefillMeta] = useState(null);
+
   const {
     config,
     errors,
@@ -16,8 +23,19 @@ const GeneratorPage = () => {
     generatedAtText,
     setErrors,
     handleConfigChange,
-    generate
+    generate,
+    applyPreset
   } = useWorksheetGenerator();
+
+  useEffect(() => {
+    const parsed = parseCurriculumPresetSearch(searchParams, { includeQuestionCount: true });
+    if (!parsed) {
+      return;
+    }
+
+    applyPreset(parsed.prefill);
+    setPrefillMeta({ lesson: parsed.lesson, hasWarnings: parsed.hasWarnings });
+  }, [searchParams, applyPreset]);
 
   useEffect(() => {
     document.body.dataset.paperSize = config.paperSize;
@@ -35,9 +53,22 @@ const GeneratorPage = () => {
     };
   }, []);
 
+  const prefillMessages = useMemo(() => {
+    if (!prefillMeta) {
+      return [];
+    }
+
+    const messages = [t("generatorPage.prefillLoaded", { lesson: prefillMeta.lesson })];
+    if (prefillMeta.hasWarnings) {
+      messages.push(t("generatorPage.prefillInvalid"));
+    }
+
+    return messages;
+  }, [prefillMeta, t]);
+
   const handlePrintWorksheet = () => {
     if (!worksheetDoc) {
-      setErrors(["Generate a worksheet before printing."]);
+      setErrors([t("worksheet.printBeforeGenerate")]);
       return;
     }
 
@@ -48,7 +79,7 @@ const GeneratorPage = () => {
 
   const handlePrintAnswerKey = () => {
     if (!worksheetDoc || !config.includeAnswerKey) {
-      setErrors(["Enable and generate an answer key before printing it."]);
+      setErrors([t("worksheet.answerKeyPrereq")]);
       return;
     }
 
@@ -60,9 +91,17 @@ const GeneratorPage = () => {
   return (
     <section className="page generator-page">
       <header className="page-header no-print">
-        <h1>Worksheet Generator</h1>
-        <p>Generate printable abacus worksheets with configurable arithmetic rules.</p>
+        <h1>{t("generatorPage.title")}</h1>
+        <p>{t("generatorPage.description")}</p>
       </header>
+
+      {prefillMessages.length > 0 ? (
+        <section className="warning-card no-print" role="status" aria-live="polite">
+          <ul>
+            {prefillMessages.map((message) => <li key={message}>{message}</li>)}
+          </ul>
+        </section>
+      ) : null}
 
       <WorksheetSettingsForm
         config={config}

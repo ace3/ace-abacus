@@ -119,7 +119,7 @@ export const generateWorksheet = (config) => {
     const answer = rows.reduce((acc, value) => acc + value, 0);
 
     if (usedFallback) {
-      warnings.push(`Question ${i + 1}: used deterministic fallback generator.`);
+      warnings.push({ code: "fallback", questionIndex: i + 1 });
     }
 
     problems.push({ rows, answer });
