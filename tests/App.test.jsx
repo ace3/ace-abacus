@@ -121,6 +121,14 @@ describe("Practice pages", () => {
     expect(digitsInput).toHaveValue("5");
   });
 
+  it("applies multiplication curriculum preset in Anki", () => {
+    renderAtRoute("/anki?source=curriculum&lesson=A1-L1&operationMode=multiplication&digits=4&rowsPerQuestion=2");
+
+    const modeSelect = screen.getByRole("combobox", { name: "Operasi" });
+    expect(modeSelect).toHaveValue("multiplication");
+    expect(screen.getByText(/^× /)).toBeInTheDocument();
+  });
+
   it("runs time attack and finishes when timer reaches zero", () => {
     vi.useFakeTimers();
     renderAtRoute("/time-attack");

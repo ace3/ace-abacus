@@ -4,15 +4,15 @@ import { buildCurriculumToolLink, parseCurriculumPresetSearch } from "../src/sha
 
 describe("curriculumPresetQuery", () => {
   it("parses valid curriculum preset", () => {
-    const params = new URLSearchParams("source=curriculum&lesson=J1-L1&operationMode=addition&digits=2&rowsPerQuestion=4&questionCount=10");
+    const params = new URLSearchParams("source=curriculum&lesson=J1-L1&operationMode=multiplication&digits=2&rowsPerQuestion=2&questionCount=10");
 
     const parsed = parseCurriculumPresetSearch(params, { includeQuestionCount: true });
 
     expect(parsed.lesson).toBe("J1-L1");
     expect(parsed.prefill).toEqual({
-      operationMode: "addition",
+      operationMode: "multiplication",
       digits: 2,
-      rowsPerQuestion: 4,
+      rowsPerQuestion: 2,
       questionCount: 10
     });
     expect(parsed.hasWarnings).toBe(false);
@@ -39,5 +39,14 @@ describe("curriculumPresetQuery", () => {
     expect(link).toContain("lesson=F2-L1");
     expect(link).toContain("operationMode=mixed");
     expect(link).toContain("digits=3");
+  });
+
+  it("parses allowed time-attack duration preset", () => {
+    const params = new URLSearchParams("source=curriculum&lesson=G3-L1&duration=900");
+
+    const parsed = parseCurriculumPresetSearch(params, { includeDuration: true });
+
+    expect(parsed.prefill.duration).toBe(900);
+    expect(parsed.hasWarnings).toBe(false);
   });
 });

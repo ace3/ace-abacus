@@ -22,11 +22,11 @@ const validateIntegerRange = (key, value) => {
 
 export const validateWorksheetConfig = (config) => {
   const errors = [];
-  const allowedModes = ["addition", "subtraction", "mixed"];
+  const allowedModes = ["addition", "subtraction", "mixed", "multiplication", "division"];
   const allowedPaper = ["letter", "a4"];
 
   if (!allowedModes.includes(config.operationMode)) {
-    errors.push("operationMode harus addition, subtraction, atau mixed.");
+    errors.push("operationMode harus addition, subtraction, mixed, multiplication, atau division.");
   }
 
   if (!allowedPaper.includes(config.paperSize)) {

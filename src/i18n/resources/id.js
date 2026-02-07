@@ -26,7 +26,9 @@ const id = {
     mode: {
       addition: "Penjumlahan",
       subtraction: "Pengurangan",
-      mixed: "Campuran"
+      mixed: "Campuran",
+      multiplication: "Perkalian",
+      division: "Pembagian"
     },
     yes: "Ya",
     no: "Tidak",

@@ -152,7 +152,7 @@ const AnkiPage = () => {
           <>
             <div className="question-rows" aria-label={t("practice.questionRows")}>
               {question.rows.map((row, index) => (
-                <div key={`${row}-${index}`}>{formatSignedRow(row, index)}</div>
+                <div key={`${row}-${index}`}>{formatSignedRow(row, index, question.operationMode)}</div>
               ))}
             </div>
 

@@ -26,7 +26,9 @@ const en = {
     mode: {
       addition: "Addition",
       subtraction: "Subtraction",
-      mixed: "Mixed"
+      mixed: "Mixed",
+      multiplication: "Multiplication",
+      division: "Division"
     },
     yes: "Yes",
     no: "No",

@@ -19,8 +19,8 @@ const parseBoolean = (value) => {
   return null;
 };
 
-const allowedOperationModes = new Set(["addition", "subtraction", "mixed"]);
-const allowedDurations = new Set([30, 60, 120]);
+const allowedOperationModes = new Set(["addition", "subtraction", "mixed", "multiplication", "division"]);
+const allowedDurations = new Set([60, 180, 300, 600, 900]);
 
 const applyCommonPracticeFields = (params, warnings) => {
   const prefill = {};
@@ -101,7 +101,7 @@ export const parseCurriculumPresetSearch = (searchParams, options = {}) => {
   if (options.includeDuration) {
     const durationValue = searchParams.get("duration");
     if (durationValue) {
-      const parsed = intInRange(durationValue, 30, 120);
+      const parsed = intInRange(durationValue, 60, 900);
       if (parsed === null || !allowedDurations.has(parsed)) {
         warnings.push("duration");
       } else {

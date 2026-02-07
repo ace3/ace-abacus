@@ -99,4 +99,44 @@ describe("generator and validation", () => {
       });
     });
   });
+
+  it("supports multiplication mode with consistent answers", () => {
+    const result = generateWorksheet({
+      ...baseConfig,
+      operationMode: "multiplication",
+      questionCount: 10,
+      rowsPerQuestion: 2,
+      digits: 4,
+      seed: "mul-check"
+    });
+
+    expect(result.ok).toBe(true);
+    result.document.problems.forEach((problem) => {
+      expect(problem.rows).toHaveLength(2);
+      expect(problem.rows[0]).toBeGreaterThan(0);
+      expect(problem.rows[1]).toBeGreaterThan(0);
+      expect(problem.answer).toBe(problem.rows[0] * problem.rows[1]);
+    });
+  });
+
+  it("supports division mode with integer answers", () => {
+    const result = generateWorksheet({
+      ...baseConfig,
+      operationMode: "division",
+      questionCount: 10,
+      rowsPerQuestion: 2,
+      digits: 4,
+      seed: "div-check"
+    });
+
+    expect(result.ok).toBe(true);
+    result.document.problems.forEach((problem) => {
+      expect(problem.rows).toHaveLength(2);
+      const [dividend, divisor] = problem.rows;
+      expect(dividend).toBeGreaterThan(0);
+      expect(divisor).toBeGreaterThan(0);
+      expect(dividend % divisor).toBe(0);
+      expect(problem.answer).toBe(dividend / divisor);
+    });
+  });
 });

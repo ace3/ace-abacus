@@ -6,6 +6,7 @@ const DEBUG = false;
 
 const randomInt = (rng, min, max) => Math.floor(rng() * (max - min + 1)) + min;
 const maxValueForDigits = (digits) => (10 ** digits) - 1;
+const maxDivisionDivisor = (digits) => Math.max(2, Math.min(12, maxValueForDigits(Math.max(1, digits - 1))));
 
 const pickRowSign = (operationMode, rowIndex, rng) => {
   if (rowIndex === 0) {
@@ -98,6 +99,30 @@ const buildProblem = (cfg, rng) => {
   return { rows: fallbackProblem(cfg, rng), usedFallback: true };
 };
 
+const buildMultiplicationProblem = (cfg, rng) => {
+  const maxAbs = maxValueForDigits(cfg.digits);
+  const left = randomInt(rng, 1, Math.max(1, maxAbs));
+  const right = randomInt(rng, 1, Math.max(1, maxDivisionDivisor(cfg.digits)));
+
+  return {
+    rows: [left, right],
+    answer: left * right
+  };
+};
+
+const buildDivisionProblem = (cfg, rng) => {
+  const maxAbs = maxValueForDigits(cfg.digits);
+  const divisor = randomInt(rng, 1, Math.max(1, maxDivisionDivisor(cfg.digits)));
+  const maxQuotient = Math.max(1, Math.floor(maxAbs / divisor));
+  const quotient = randomInt(rng, 1, maxQuotient);
+  const dividend = divisor * quotient;
+
+  return {
+    rows: [dividend, divisor],
+    answer: quotient
+  };
+};
+
 export const generateWorksheet = (config) => {
   const validation = validateWorksheetConfig(config);
   if (!validation.valid) {
@@ -115,6 +140,16 @@ export const generateWorksheet = (config) => {
   const problems = [];
 
   for (let i = 0; i < cfg.questionCount; i += 1) {
+    if (cfg.operationMode === "multiplication") {
+      problems.push(buildMultiplicationProblem(cfg, rng));
+      continue;
+    }
+
+    if (cfg.operationMode === "division") {
+      problems.push(buildDivisionProblem(cfg, rng));
+      continue;
+    }
+
     const { rows, usedFallback } = buildProblem(cfg, rng);
     const answer = rows.reduce((acc, value) => acc + value, 0);
 

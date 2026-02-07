@@ -27,6 +27,8 @@ const WorksheetSettingsForm = ({
               <option value="addition">{t("common.mode.addition")}</option>
               <option value="subtraction">{t("common.mode.subtraction")}</option>
               <option value="mixed">{t("common.mode.mixed")}</option>
+              <option value="multiplication">{t("common.mode.multiplication")}</option>
+              <option value="division">{t("common.mode.division")}</option>
             </select>
           </label>
 

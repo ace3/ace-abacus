@@ -9,7 +9,7 @@ import { usePracticeQuestion } from "../features/practice/hooks/usePracticeQuest
 import { usePracticeSettings } from "../features/practice/hooks/usePracticeSettings.js";
 import { parseCurriculumPresetSearch } from "../shared/presets/curriculumPresetQuery.js";
 
-const durationOptions = [30, 60, 120];
+const durationOptions = [60, 180, 300, 600, 900];
 
 const normalizeInput = (value) => {
   if (value === "" || value === "-") {
@@ -183,7 +183,7 @@ const TimeAttackPage = () => {
             {t("timeAttack.duration")}
             <select aria-label={t("timeAttack.duration")} value={duration} onChange={(e) => setDuration(Number(e.target.value))}>
               {durationOptions.map((seconds) => (
-                <option key={seconds} value={seconds}>{seconds}s</option>
+                <option key={seconds} value={seconds}>{Math.floor(seconds / 60)} min</option>
               ))}
             </select>
           </label>
@@ -215,7 +215,7 @@ const TimeAttackPage = () => {
           <>
             <div className="question-rows" aria-label={t("practice.questionRows")}>
               {question.rows.map((row, index) => (
-                <div key={`${row}-${index}`}>{formatSignedRow(row, index)}</div>
+                <div key={`${row}-${index}`}>{formatSignedRow(row, index, question.operationMode)}</div>
               ))}
             </div>
             <AnswerInputDisplay value={answerInput} />

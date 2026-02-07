@@ -38,7 +38,7 @@ export const sipCurriculumStages = [
           ],
           generatorPreset: { operationMode: "addition", digits: 1, rowsPerQuestion: 3, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
           ankiPreset: { operationMode: "addition", digits: 1, rowsPerQuestion: 3, allowNegativeIntermediate: false, allowNegativeFinal: false },
-          timeAttackPreset: { operationMode: "addition", digits: 1, rowsPerQuestion: 3, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 30 }
+          timeAttackPreset: { operationMode: "addition", digits: 1, rowsPerQuestion: 3, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 180 }
         })
       ]
     },
@@ -58,7 +58,7 @@ export const sipCurriculumStages = [
           ],
           generatorPreset: { operationMode: "mixed", digits: 1, rowsPerQuestion: 4, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
           ankiPreset: { operationMode: "mixed", digits: 1, rowsPerQuestion: 4, allowNegativeIntermediate: false, allowNegativeFinal: false },
-          timeAttackPreset: { operationMode: "mixed", digits: 1, rowsPerQuestion: 4, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 30 }
+          timeAttackPreset: { operationMode: "mixed", digits: 1, rowsPerQuestion: 4, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 180 }
         })
       ]
     },
@@ -78,7 +78,7 @@ export const sipCurriculumStages = [
           ],
           generatorPreset: { operationMode: "mixed", digits: 2, rowsPerQuestion: 4, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
           ankiPreset: { operationMode: "mixed", digits: 2, rowsPerQuestion: 4, allowNegativeIntermediate: false, allowNegativeFinal: false },
-          timeAttackPreset: { operationMode: "mixed", digits: 2, rowsPerQuestion: 4, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 60 }
+          timeAttackPreset: { operationMode: "mixed", digits: 2, rowsPerQuestion: 4, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 180 }
         })
       ]
     },
@@ -98,7 +98,7 @@ export const sipCurriculumStages = [
           ],
           generatorPreset: { operationMode: "mixed", digits: 2, rowsPerQuestion: 5, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
           ankiPreset: { operationMode: "mixed", digits: 2, rowsPerQuestion: 5, allowNegativeIntermediate: false, allowNegativeFinal: false },
-          timeAttackPreset: { operationMode: "mixed", digits: 2, rowsPerQuestion: 5, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 60 }
+          timeAttackPreset: { operationMode: "mixed", digits: 2, rowsPerQuestion: 5, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 180 }
         })
       ]
     }
@@ -119,7 +119,7 @@ export const sipCurriculumStages = [
           ],
           generatorPreset: { operationMode: "mixed", digits: 2, rowsPerQuestion: 5, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
           ankiPreset: { operationMode: "mixed", digits: 2, rowsPerQuestion: 5, allowNegativeIntermediate: false, allowNegativeFinal: false },
-          timeAttackPreset: { operationMode: "mixed", digits: 2, rowsPerQuestion: 5, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 60 }
+          timeAttackPreset: { operationMode: "mixed", digits: 2, rowsPerQuestion: 5, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 180 }
         })
       ]
     },
@@ -138,7 +138,7 @@ export const sipCurriculumStages = [
           ],
           generatorPreset: { operationMode: "mixed", digits: 3, rowsPerQuestion: 5, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
           ankiPreset: { operationMode: "mixed", digits: 3, rowsPerQuestion: 5, allowNegativeIntermediate: false, allowNegativeFinal: false },
-          timeAttackPreset: { operationMode: "mixed", digits: 3, rowsPerQuestion: 5, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 60 }
+          timeAttackPreset: { operationMode: "mixed", digits: 3, rowsPerQuestion: 5, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 180 }
         })
       ]
     },
@@ -155,9 +155,9 @@ export const sipCurriculumStages = [
           rules: [
             { id: "Latih kombinasi 2 digit dengan pola tetap.", en: "Practice fixed-pattern 2-digit combinations." }
           ],
-          generatorPreset: { operationMode: "addition", digits: 3, rowsPerQuestion: 6, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
-          ankiPreset: { operationMode: "addition", digits: 3, rowsPerQuestion: 6, allowNegativeIntermediate: false, allowNegativeFinal: false },
-          timeAttackPreset: { operationMode: "addition", digits: 3, rowsPerQuestion: 6, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 60 }
+          generatorPreset: { operationMode: "multiplication", digits: 3, rowsPerQuestion: 2, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
+          ankiPreset: { operationMode: "multiplication", digits: 3, rowsPerQuestion: 2, allowNegativeIntermediate: false, allowNegativeFinal: false },
+          timeAttackPreset: { operationMode: "multiplication", digits: 3, rowsPerQuestion: 2, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 180 }
         })
       ]
     },
@@ -174,9 +174,9 @@ export const sipCurriculumStages = [
           rules: [
             { id: "Validasi hasil lewat perkalian balik saat latihan.", en: "Validate answers with reverse multiplication." }
           ],
-          generatorPreset: { operationMode: "mixed", digits: 3, rowsPerQuestion: 6, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
-          ankiPreset: { operationMode: "mixed", digits: 3, rowsPerQuestion: 6, allowNegativeIntermediate: false, allowNegativeFinal: false },
-          timeAttackPreset: { operationMode: "mixed", digits: 3, rowsPerQuestion: 6, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 60 }
+          generatorPreset: { operationMode: "division", digits: 3, rowsPerQuestion: 2, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
+          ankiPreset: { operationMode: "division", digits: 3, rowsPerQuestion: 2, allowNegativeIntermediate: false, allowNegativeFinal: false },
+          timeAttackPreset: { operationMode: "division", digits: 3, rowsPerQuestion: 2, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 180 }
         })
       ]
     }
@@ -195,9 +195,9 @@ export const sipCurriculumStages = [
           rules: [
             { id: "Fokus ketelitian digit tengah untuk hasil akhir.", en: "Prioritize middle-digit precision." }
           ],
-          generatorPreset: { operationMode: "addition", digits: 4, rowsPerQuestion: 6, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
-          ankiPreset: { operationMode: "addition", digits: 4, rowsPerQuestion: 6, allowNegativeIntermediate: false, allowNegativeFinal: false },
-          timeAttackPreset: { operationMode: "addition", digits: 4, rowsPerQuestion: 6, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 60 }
+          generatorPreset: { operationMode: "multiplication", digits: 4, rowsPerQuestion: 2, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
+          ankiPreset: { operationMode: "multiplication", digits: 4, rowsPerQuestion: 2, allowNegativeIntermediate: false, allowNegativeFinal: false },
+          timeAttackPreset: { operationMode: "multiplication", digits: 4, rowsPerQuestion: 2, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 180 }
         })
       ]
     },
@@ -214,9 +214,9 @@ export const sipCurriculumStages = [
           rules: [
             { id: "Gunakan estimasi awal sebelum operasi detail.", en: "Estimate first before detailed operations." }
           ],
-          generatorPreset: { operationMode: "mixed", digits: 4, rowsPerQuestion: 6, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
-          ankiPreset: { operationMode: "mixed", digits: 4, rowsPerQuestion: 6, allowNegativeIntermediate: false, allowNegativeFinal: false },
-          timeAttackPreset: { operationMode: "mixed", digits: 4, rowsPerQuestion: 6, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 60 }
+          generatorPreset: { operationMode: "division", digits: 4, rowsPerQuestion: 2, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
+          ankiPreset: { operationMode: "division", digits: 4, rowsPerQuestion: 2, allowNegativeIntermediate: false, allowNegativeFinal: false },
+          timeAttackPreset: { operationMode: "division", digits: 4, rowsPerQuestion: 2, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 180 }
         })
       ]
     },
@@ -235,7 +235,7 @@ export const sipCurriculumStages = [
           ],
           generatorPreset: { operationMode: "mixed", digits: 4, rowsPerQuestion: 7, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
           ankiPreset: { operationMode: "mixed", digits: 4, rowsPerQuestion: 7, allowNegativeIntermediate: false, allowNegativeFinal: false },
-          timeAttackPreset: { operationMode: "mixed", digits: 4, rowsPerQuestion: 7, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 120 }
+          timeAttackPreset: { operationMode: "mixed", digits: 4, rowsPerQuestion: 7, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 600 }
         })
       ]
     },
@@ -254,7 +254,7 @@ export const sipCurriculumStages = [
           ],
           generatorPreset: { operationMode: "mixed", digits: 5, rowsPerQuestion: 7, questionCount: 10, allowNegativeIntermediate: true, allowNegativeFinal: true },
           ankiPreset: { operationMode: "mixed", digits: 5, rowsPerQuestion: 7, allowNegativeIntermediate: true, allowNegativeFinal: true },
-          timeAttackPreset: { operationMode: "mixed", digits: 5, rowsPerQuestion: 7, allowNegativeIntermediate: true, allowNegativeFinal: true, duration: 120 }
+          timeAttackPreset: { operationMode: "mixed", digits: 5, rowsPerQuestion: 7, allowNegativeIntermediate: true, allowNegativeFinal: true, duration: 600 }
         })
       ]
     }
@@ -275,7 +275,7 @@ export const sipCurriculumStages = [
           ],
           generatorPreset: { operationMode: "mixed", digits: 5, rowsPerQuestion: 8, questionCount: 10, allowNegativeIntermediate: true, allowNegativeFinal: true },
           ankiPreset: { operationMode: "mixed", digits: 5, rowsPerQuestion: 8, allowNegativeIntermediate: true, allowNegativeFinal: true },
-          timeAttackPreset: { operationMode: "mixed", digits: 5, rowsPerQuestion: 8, allowNegativeIntermediate: true, allowNegativeFinal: true, duration: 120 }
+          timeAttackPreset: { operationMode: "mixed", digits: 5, rowsPerQuestion: 8, allowNegativeIntermediate: true, allowNegativeFinal: true, duration: 600 }
         })
       ]
     },
@@ -294,7 +294,7 @@ export const sipCurriculumStages = [
           ],
           generatorPreset: { operationMode: "addition", digits: 5, rowsPerQuestion: 8, questionCount: 10, allowNegativeIntermediate: false, allowNegativeFinal: false },
           ankiPreset: { operationMode: "addition", digits: 5, rowsPerQuestion: 8, allowNegativeIntermediate: false, allowNegativeFinal: false },
-          timeAttackPreset: { operationMode: "addition", digits: 5, rowsPerQuestion: 8, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 120 }
+          timeAttackPreset: { operationMode: "addition", digits: 5, rowsPerQuestion: 8, allowNegativeIntermediate: false, allowNegativeFinal: false, duration: 600 }
         })
       ]
     },
@@ -313,7 +313,7 @@ export const sipCurriculumStages = [
           ],
           generatorPreset: { operationMode: "mixed", digits: 5, rowsPerQuestion: 10, questionCount: 10, allowNegativeIntermediate: true, allowNegativeFinal: true },
           ankiPreset: { operationMode: "mixed", digits: 5, rowsPerQuestion: 10, allowNegativeIntermediate: true, allowNegativeFinal: true },
-          timeAttackPreset: { operationMode: "mixed", digits: 5, rowsPerQuestion: 10, allowNegativeIntermediate: true, allowNegativeFinal: true, duration: 120 }
+          timeAttackPreset: { operationMode: "mixed", digits: 5, rowsPerQuestion: 10, allowNegativeIntermediate: true, allowNegativeFinal: true, duration: 900 }
         })
       ]
     }

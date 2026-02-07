@@ -6,7 +6,7 @@ export const defaultPracticeSettings = {
   allowNegativeFinal: false
 };
 
-export const allowedOperationModes = ["addition", "subtraction", "mixed"];
+export const allowedOperationModes = ["addition", "subtraction", "mixed", "multiplication", "division"];
 
 export const sanitizePracticeSettings = (value) => {
   const next = {

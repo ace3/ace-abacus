@@ -27,12 +27,21 @@ export const buildPracticeQuestion = (settings, seed = "") => {
     ok: true,
     question: {
       rows: problem.rows,
-      answer: problem.answer
+      answer: problem.answer,
+      operationMode: settings.operationMode
     }
   };
 };
 
-export const formatSignedRow = (value, index) => {
+export const formatSignedRow = (value, index, operationMode = "addition") => {
+  if (operationMode === "multiplication") {
+    return index === 0 ? String(value) : `× ${value}`;
+  }
+
+  if (operationMode === "division") {
+    return index === 0 ? String(value) : `÷ ${value}`;
+  }
+
   if (index === 0) {
     return String(value);
   }

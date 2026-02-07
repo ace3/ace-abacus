@@ -33,7 +33,7 @@ const WorksheetPreview = ({ worksheetDoc, generatedAtText }) => {
               <ol className="row-list">
                 {problem.rows.map((row, rowIndex) => (
                   <li className="problem-row" key={`p-${index + 1}-r-${rowIndex + 1}`}>
-                    {formatWorksheetRow(row)}
+                    {formatWorksheetRow(row, rowIndex, worksheetDoc.meta.configSnapshot.operationMode)}
                   </li>
                 ))}
               </ol>
